@@ -7,7 +7,6 @@ class Play extends Phaser.Scene{
     }
 
     create() {
-
         // Set up the mouse
         this.mouse = this.input.activePointer;
         this.drawInterval = 0;
