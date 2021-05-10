@@ -7,8 +7,6 @@ class Play extends Phaser.Scene{
     }
 
     create() {
-        //Initialize start time for timer;
-        this.startTime = this.getTime();
 
         // Set up the mouse
         this.mouse = this.input.activePointer;
@@ -35,7 +33,7 @@ class Play extends Phaser.Scene{
         });
     }
 
-    update() {  
+    update(time, delta) {  
         //var pointer = this.input.activePointer;
         if (this.mouse.isDown && this.drawInterval > 10) {
             let touchX = this.mouse.x;
@@ -53,28 +51,9 @@ class Play extends Phaser.Scene{
                 this.lastX = touchX;
                 this.lastY = touchY;
             }
-
         }
         else{
-            this.drawInterval += this.getDeltaTime();
+            this.drawInterval += delta;
         }
-        // KEEP THIS ON THE BOTTOM OF UPDATE
-        this.updateDeltaTime();
-    }
-
-    getTime(){
-        let d = new Date();
-        return d.getTime();
-    }
-
-    // Get the delta time from the last update
-    getDeltaTime() {
-        let elapsed = this.getTime() - this.startTime;    
-        return elapsed; 
-    }
-
-    //reset the start time
-    updateDeltaTime() {
-        this.startTime = this.getTime(); 
     }
 }
