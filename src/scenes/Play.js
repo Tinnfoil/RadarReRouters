@@ -30,6 +30,7 @@ class Play extends Phaser.Scene{
         
             add: true
         });
+        
     }
 
     update(time, delta) {  
