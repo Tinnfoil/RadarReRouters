@@ -13,15 +13,15 @@ Testing commit (Collin)
 //Game Configuration
 let config = {
     type: Phaser.CANVAS,
-    width: 640,
-    height: 640,
+    width: 960,
+    height: 720,
     scale: {
         autoCenter: Phaser.Scale.CENTER_BOTH
     },
     physics: { 
         default: 'arcade',
         arcade:{
-            //debug: true,
+            debug: true,
             gravity:{
                 x: 0,
                 y: 0

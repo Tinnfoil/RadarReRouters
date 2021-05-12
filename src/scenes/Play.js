@@ -78,7 +78,6 @@ class Play extends Phaser.Scene{
 
     update(time, delta) {  
         //var pointer = this.input.activePointer;
-
         if (this.mouse.isDown && this.drawInterval > 10 && this.mouseFreeze == false) {
             let touchX = this.mouse.x;
             let touchY = this.mouse.y;
