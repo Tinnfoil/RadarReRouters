@@ -6,6 +6,7 @@ class Play extends Phaser.Scene{
     preload(){
         this.load.image("playerboat", "./assets/Null Sprite.png");
         this.load.image("gobutton", "./assets/TestGoButton.png");
+        this.load.image("drawfinger", "./assets/TestFinger.png");
     }
 
     create() {
@@ -15,12 +16,18 @@ class Play extends Phaser.Scene{
         this.drawInterval = 0;
         this.lastX = -1000;
         this.lastY = -1000;
-        this.mouseFreeze = false;
+        this.mouseFreeze = true;
 
         // Initialize the path the boat will follow
         this.boatPath = null;
 
-        this.playerBoat = null;
+        // Initialize the gameobject the player will use as the boat
+        this.playerBoat = new PlayerBoat(this, null, 64, gameHeight - 64);
+        this.playerBoat.setInteractive();
+        this.playerBoat.on('pointerdown', () => { this.mouseFreeze = false;});
+
+        // Draw indicator for drawing
+        this.drawFinger = this.add.sprite(105, game.config.height - 64, 'drawfinger').setOrigin(0, 0);
 
         // Set up graphics for the boat path line
         this.graphics = this.add.graphics({
@@ -49,7 +56,9 @@ class Play extends Phaser.Scene{
         let x = this.boatPath.getStartPoint().x;
         let y = this.boatPath.getStartPoint().y;  
         
-        this.playerBoat = this.add.follower(this.boatPath, x, y, 'playerboat').setScale(0.5);
+       // this.playerBoat = this.add.follower(this.boatPath, x, y, 'playerboat').setScale(0.5);
+        this.playerBoat.path = this.boatPath;
+        this.playerBoat.x = x; this.playerBoat.y = y;
         let pathlength = this.boatPath.getLength();
        
         this.playerBoat.startFollow({
@@ -69,6 +78,7 @@ class Play extends Phaser.Scene{
 
     update(time, delta) {  
         //var pointer = this.input.activePointer;
+
         if (this.mouse.isDown && this.drawInterval > 10 && this.mouseFreeze == false) {
             let touchX = this.mouse.x;
             let touchY = this.mouse.y;
@@ -76,6 +86,7 @@ class Play extends Phaser.Scene{
                 this.boatPath = this.add.path(touchX, touchY);
                 this.lastX = touchX;
                 this.lastY = touchY;
+                this.drawFinger.destroy();
             }
             else if(Math.abs(this.lastX - touchX) > 1.5 || Math.abs(this.lastY - touchY) > 1.5){
                 console.log("Drawing");
