@@ -20,6 +20,8 @@ class Play extends Phaser.Scene{
         // Initialize the path the boat will follow
         this.boatPath = null;
 
+        this.moving = false;
+
         this.playerBoat = null;
 
         // Set up graphics for the boat path line
@@ -38,6 +40,9 @@ class Play extends Phaser.Scene{
         
             add: true
         });
+
+        this.l_test = this.sound.add('l', {volume: 0.5, loop: true});
+        this.r_test = this.sound.add('r', {volume: 0.5, loop: true});
 
         this.goButton = this.add.sprite(gameWidth - 128, gameHeight - 32, 'gobutton').setOrigin(0, 1);
         this.goButton.setInteractive();
@@ -65,6 +70,11 @@ class Play extends Phaser.Scene{
         });
         this.mouseFreeze = true;
         this.drawInterval = 0;
+
+        this.moving = true;
+
+        this.l_test.play();
+        this.r_test.play();
     }
 
     update(time, delta) {  
@@ -89,6 +99,10 @@ class Play extends Phaser.Scene{
         else{
             this.drawInterval += delta;
         }
-
+        if (this.moving) {
+            
+            this.l_test.volume = 0.5 - (this.playerBoat.x - game.config.width/2)/game.config.width;
+            this.r_test.volume = 0.5 + (this.playerBoat.x - game.config.width/2)/game.config.width;
+        }
     }
 }

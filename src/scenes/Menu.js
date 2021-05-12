@@ -5,6 +5,8 @@ class Menu extends Phaser.Scene{
     }
 
     preload(){
+        this.load.audio('l', './assets/audio/droneL.wav');
+        this.load.audio('r', './assets/audio/droneR.wav');
     }
 
     create() {
