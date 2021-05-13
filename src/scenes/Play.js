@@ -14,7 +14,7 @@ class Play extends Phaser.Scene{
 
     create() {
         this.cameras.main.setBackgroundColor('#000000')
-        this.grid = this.add.sprite(0, 0, 'backgroundgrid').setOrigin(0, 0);
+        this.grid = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'backgroundgrid').setOrigin(0, 0);
         
         // Set up the mouse
         this.mouse = this.input.activePointer;
@@ -28,10 +28,6 @@ class Play extends Phaser.Scene{
         // Initialize the path the boat will follow
         this.boatPath = null;
 
-        // Initialize Enemy Boat
-        this.enemyBoat = this.add.sprite(game.config.width - 128, 300, 'enemyboat').setOrigin(0, 0);
-        this.enemyBoat.scale = .15;
-
         // Initialize Island
         this.island = this.add.sprite(0, 0, 'island').setOrigin(0, 0);
         this.island.scale = .4;
@@ -40,6 +36,22 @@ class Play extends Phaser.Scene{
         this.playerBoat = new PlayerBoat(this, null, 64, gameHeight - 64);
         this.playerBoat.setInteractive();
         this.playerBoat.on('pointerdown', () => { this.mouseFreeze = false;});
+
+        // add enemies group for collision detection
+        this.enemies = [
+            new Enemy(this, null, [
+                1000, 300,
+                500, 100,
+                280, 350,
+                -50, 200 
+            ], 1.5, 0, 'enemyboat').setOrigin(0.5),
+            new Enemy(this, null, [
+                1000, 400,
+                600, 200,
+                250, 500,
+                -50, 300 
+            ], 1.5, 1000, 'enemyboat').setOrigin(0.5)
+        ];
 
         // Draw indicator for drawing
         this.drawFinger = this.add.sprite(105, game.config.height - 64, 'drawfinger').setOrigin(0, 0);
@@ -136,7 +148,22 @@ class Play extends Phaser.Scene{
         else{
             this.drawInterval -= delta;
         }
+        this.checkCollision();
+    }
 
+<<<<<<< HEAD
         this.playerBoat.update(time, delta);
+=======
+    checkCollision() {
+        //simple radius-based collision detection
+        for (let i = 0; i < this.enemies.length; i++) {
+            if(Phaser.Math.Distance.BetweenPoints(
+                this.playerBoat, this.enemies[i]) <
+                this.playerBoat.colRad + this.enemies[i].colRad) {
+
+                console.log("collided");
+            }
+        }
+>>>>>>> enemies
     }
 }

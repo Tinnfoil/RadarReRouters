@@ -12,6 +12,8 @@ class PlayerBoat extends Phaser.GameObjects.PathFollower {
         
         this.updateInterval = 0;
         this.targetAngle = 0;
+        // a circle radius to check collisions from
+        this.colRad = 20;
     }
 
     update(time, delta) {
