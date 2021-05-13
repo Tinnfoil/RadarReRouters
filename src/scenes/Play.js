@@ -4,13 +4,18 @@ class Play extends Phaser.Scene{
     }
 
     preload(){
-        this.load.image("playerboat", "./assets/Null Sprite.png");
+        this.load.image("playerboat", "./assets/Ship_01.png");
         this.load.image("gobutton", "./assets/TestGoButton.png");
         this.load.image("drawfinger", "./assets/TestFinger.png");
+        this.load.image("island", "./assets/Island.png");
+        this.load.image("enemyboat", "./assets/Ship_02.png");
+        this.load.image("backgroundgrid", "./assets/grid.png");
     }
 
     create() {
-        this.cameras.main.setBackgroundColor('#559955')
+        this.cameras.main.setBackgroundColor('#000000')
+        this.grid = this.add.sprite(0, 0, 'backgroundgrid').setOrigin(0, 0);
+        
         // Set up the mouse
         this.mouse = this.input.activePointer;
         this.drawInterval = 0;
@@ -20,6 +25,14 @@ class Play extends Phaser.Scene{
 
         // Initialize the path the boat will follow
         this.boatPath = null;
+
+        // Initialize Enemy Boat
+        this.enemyBoat = this.add.sprite(game.config.width - 128, 300, 'enemyboat').setOrigin(0, 0);
+        this.enemyBoat.scale = .15;
+
+        // Initialize Island
+        this.island = this.add.sprite(0, 0, 'island').setOrigin(0, 0);
+        this.island.scale = .4;
 
         // Initialize the gameobject the player will use as the boat
         this.playerBoat = new PlayerBoat(this, null, 64, gameHeight - 64);
@@ -35,7 +48,7 @@ class Play extends Phaser.Scene{
             y: 0,
             lineStyle: {
                 width: 1,
-                color: 0x000000,
+                color: 0xffffff,
                 alpha: 1
             },
             fillStyle: {

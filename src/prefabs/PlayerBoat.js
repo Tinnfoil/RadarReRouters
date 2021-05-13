@@ -5,7 +5,7 @@ class PlayerBoat extends Phaser.GameObjects.PathFollower {
         scene.add.existing(this);               // add to existing scene, displayList, updateList
         //scene.physics.add.existing(this);       // add to physics system
 
-        this.scale = .3;
+        this.scale = .15;
     }
 
     update() {
