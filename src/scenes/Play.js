@@ -94,9 +94,10 @@ class Play extends Phaser.Scene{
 
     update(time, delta) {  
         //var pointer = this.input.activePointer;
-        if (this.mouse.isDown && this.drawInterval > 17 && this.mouseFreeze == false) {
+        if (this.mouse.isDown && this.drawInterval <= 0 && this.mouseFreeze == false) {
             let touchX = this.mouse.x;
             let touchY = this.mouse.y;
+            
             if(this.boatPath == null){
                 this.boatPath = this.add.path(touchX, touchY);
                 this.boatCurve = new Phaser.Curves.Spline([touchX, touchY]);
@@ -107,16 +108,19 @@ class Play extends Phaser.Scene{
                 
                 this.drawFinger.destroy();
             }
-            else if(Math.abs(this.lastX - touchX) > 8 || Math.abs(this.lastY - touchY) > 8){
+            else if(Math.abs(this.lastX - touchX) > 12 || Math.abs(this.lastY - touchY) > 12){
                 console.log("Drawing");
                 this.graphics.clear()
-                this.drawInterval = 0;
-                
+
+                this.drawInterval = Math.min(Math.max(Math.abs(this.lastX - touchX) +  Math.abs(this.lastY - touchY) - 16, 4), 17)
+
                 let points = [
                     this.lastX, this.lastY,     // start point
-                    (this.lastX - this.lastlastX)/4 + this.lastX, (this.lastY - this.lastlastY)/4 + this.lastY,     // control point
+                    (this.drawInterval/17) * ((this.lastX - this.lastlastX)/4 + (touchX - this.lastX)/5) + this.lastX, 
+                    (this.drawInterval/17) * ((this.lastY - this.lastlastY)/4 + (touchY - this.lastY)/5) + this.lastY,     // control point
                     touchX, touchY      // end point
                 ];
+                //console.log(touchX - this.lastX);
                 let curve = new Phaser.Curves.QuadraticBezier(points);
                 //this.boatPath.lineTo(touchX, touchY);
                 this.boatPath.add(curve);
@@ -126,10 +130,11 @@ class Play extends Phaser.Scene{
                 this.lastlastY = this.lastY;
                 this.lastX = touchX;
                 this.lastY = touchY;
+                //console.log(this.drawInterval);
             }
         }
         else{
-            this.drawInterval += delta;
+            this.drawInterval -= delta;
         }
 
         this.playerBoat.update(time, delta);
