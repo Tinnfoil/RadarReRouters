@@ -149,11 +149,9 @@ class Play extends Phaser.Scene{
             this.drawInterval -= delta;
         }
         this.checkCollision();
-    }
-
-<<<<<<< HEAD
         this.playerBoat.update(time, delta);
-=======
+    }
+    
     checkCollision() {
         //simple radius-based collision detection
         for (let i = 0; i < this.enemies.length; i++) {
@@ -164,6 +162,5 @@ class Play extends Phaser.Scene{
                 console.log("collided");
             }
         }
->>>>>>> enemies
     }
 }
