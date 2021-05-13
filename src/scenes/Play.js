@@ -38,24 +38,9 @@ class Play extends Phaser.Scene{
         this.playerBoat.setInteractive();
         this.playerBoat.on('pointerdown', () => { this.mouseFreeze = false;});
 
-        this.level1 = new Level1(this);
-        this.level1.createLevel();
-        
-        // add enemies group for collision detection
-        this.enemies = [
-            new Enemy(this, null, [
-                1000, 300,
-                500, 100,
-                280, 350,
-                -50, 200 
-            ], 1.5, 0, 'enemyboat').setOrigin(0.5),
-            new Enemy(this, null, [
-                1000, 400,
-                600, 200,
-                250, 500,
-                -50, 300 
-            ], 1.5, 1000, 'enemyboat').setOrigin(0.5)
-        ];
+        // Create level and initialize it
+        this.level = new Level1(this);
+        this.level.createLevel();
 
         // Draw indicator for drawing
         this.drawFinger = this.add.sprite(105, game.config.height - 64, 'drawfinger').setOrigin(0, 0);
@@ -152,19 +137,9 @@ class Play extends Phaser.Scene{
         else{
             this.drawInterval -= delta;
         }
-        this.checkCollision();
+
+        this.level.checkCollisions(this.playerBoat);
         this.playerBoat.update(time, delta);
     }
     
-    checkCollision() {
-        //simple radius-based collision detection
-        for (let i = 0; i < this.enemies.length; i++) {
-            if(Phaser.Math.Distance.BetweenPoints(
-                this.playerBoat, this.enemies[i]) <
-                this.playerBoat.colRad + this.enemies[i].colRad) {
-
-                console.log("collided");
-            }
-        }
-    }
 }
