@@ -1,10 +1,12 @@
 class Enemy extends Phaser.GameObjects.PathFollower {
-    constructor(scene, path, points, speed, sprite) {
+    constructor(scene, path, points, speed, delay, sprite) {
         super(scene, path, points[0], points[1], sprite); 
         scene.add.existing(this);
 
         this.scale = 0.15;
-        this.texture.flipY = true;
+        // size of circular radius to check collisions
+        this.colRad = 20;
+        this.flipY = true;
 
         // taken from the phaser examples:
         // https://phaser.io/examples/v3/view/paths/followers/rotate-to-path
@@ -21,7 +23,7 @@ class Enemy extends Phaser.GameObjects.PathFollower {
         this.startFollow({
             from: 0,            // points allow a path are values 0–1
             to: 1,
-            delay: 0,
+            delay: delay,       // give ships a offset, not totally in sync
             duration: (pathlength / speed ) * 10,
             ease: 'Power0',
             hold: 0,

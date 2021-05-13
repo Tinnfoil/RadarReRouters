@@ -6,6 +6,8 @@ class PlayerBoat extends Phaser.GameObjects.PathFollower {
         //scene.physics.add.existing(this);       // add to physics system
 
         this.scale = .15;
+        // a circle radius to check collisions from
+        this.colRad = 20;
     }
 
     update() {
