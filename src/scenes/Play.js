@@ -19,8 +19,10 @@ class Play extends Phaser.Scene{
         // Set up the mouse
         this.mouse = this.input.activePointer;
         this.drawInterval = 0;
-        this.lastX = -1000;
-        this.lastY = -1000;
+        this.lastlastX =  -1;
+        this.lastlastY = 1;
+        this.lastX = 0;
+        this.lastY = 0;
         this.mouseFreeze = true;
 
         // Initialize the path the boat will follow
@@ -71,6 +73,7 @@ class Play extends Phaser.Scene{
         
        // this.playerBoat = this.add.follower(this.boatPath, x, y, 'playerboat').setScale(0.5);
         this.playerBoat.path = this.boatPath;
+        //this.playerBoat.path = this.boatCurve;
         this.playerBoat.x = x; this.playerBoat.y = y;
         let pathlength = this.boatPath.getLength();
        
@@ -83,7 +86,7 @@ class Play extends Phaser.Scene{
             hold: 0,
             repeat: -1,
             yoyo: false,
-            rotateToPath: true
+            //rotateToPath: true
         });
         this.mouseFreeze = true;
         this.drawInterval = 0;
@@ -91,20 +94,36 @@ class Play extends Phaser.Scene{
 
     update(time, delta) {  
         //var pointer = this.input.activePointer;
-        if (this.mouse.isDown && this.drawInterval > 10 && this.mouseFreeze == false) {
+        if (this.mouse.isDown && this.drawInterval > 17 && this.mouseFreeze == false) {
             let touchX = this.mouse.x;
             let touchY = this.mouse.y;
             if(this.boatPath == null){
                 this.boatPath = this.add.path(touchX, touchY);
+                this.boatCurve = new Phaser.Curves.Spline([touchX, touchY]);
                 this.lastX = touchX;
                 this.lastY = touchY;
+                this.lastlastX = this.lastX - 1;
+                this.lastlastY = this.lastY + 1;
+                
                 this.drawFinger.destroy();
             }
-            else if(Math.abs(this.lastX - touchX) > 1.5 || Math.abs(this.lastY - touchY) > 1.5){
+            else if(Math.abs(this.lastX - touchX) > 8 || Math.abs(this.lastY - touchY) > 8){
                 console.log("Drawing");
+                this.graphics.clear()
                 this.drawInterval = 0;
-                this.boatPath.lineTo(touchX, touchY);
+                
+                let points = [
+                    this.lastX, this.lastY,     // start point
+                    (this.lastX - this.lastlastX)/4 + this.lastX, (this.lastY - this.lastlastY)/4 + this.lastY,     // control point
+                    touchX, touchY      // end point
+                ];
+                let curve = new Phaser.Curves.QuadraticBezier(points);
+                //this.boatPath.lineTo(touchX, touchY);
+                this.boatPath.add(curve);
                 this.boatPath.draw(this.graphics);
+
+                this.lastlastX = this.lastX;
+                this.lastlastY = this.lastY;
                 this.lastX = touchX;
                 this.lastY = touchY;
             }
@@ -113,5 +132,6 @@ class Play extends Phaser.Scene{
             this.drawInterval += delta;
         }
 
+        this.playerBoat.update(time, delta);
     }
 }
