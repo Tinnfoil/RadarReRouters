@@ -10,6 +10,7 @@ class Play extends Phaser.Scene{
         this.load.image("island", "./assets/Island.png");
         this.load.image("enemyboat", "./assets/Ship_02.png");
         this.load.image("backgroundgrid", "./assets/grid.png");
+        this.load.image("objective", "./assets/TestObjective.png");
     }
 
     create() {
@@ -41,6 +42,9 @@ class Play extends Phaser.Scene{
         this.playerBoat.setInteractive();
         this.playerBoat.on('pointerdown', () => { this.mouseFreeze = false;});
 
+        this.level1 = new Level1(this);
+        this.level1.createLevel();
+
         // Draw indicator for drawing
         this.drawFinger = this.add.sprite(105, game.config.height - 64, 'drawfinger').setOrigin(0, 0);
 
@@ -67,7 +71,7 @@ class Play extends Phaser.Scene{
     }
 
     FollowPath(){
-        console.log("Called");
+        console.log("Start Path");
         let x = this.boatPath.getStartPoint().x;
         let y = this.boatPath.getStartPoint().y;  
         

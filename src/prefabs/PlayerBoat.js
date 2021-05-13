@@ -24,7 +24,7 @@ class PlayerBoat extends Phaser.GameObjects.PathFollower {
                 let anglediff = Math.abs(this.targetAngle - this.angle);
                 //console.log(.1 + anglediff / 360);
                 //let angle = Phaser.Math.RadToDeg(angleDeg);
-                let angleRad = Phaser.Math.Angle.RotateTo(Phaser.Math.DegToRad(this.angle), this.targetAngle, .08 + anglediff / 180)
+                let angleRad = Phaser.Math.Angle.RotateTo(Phaser.Math.DegToRad(this.angle), this.targetAngle, .06 + anglediff / 180)
                 let angle = Phaser.Math.RadToDeg(angleRad);
                 //console.log(angle);
                 this.angle = angle;
