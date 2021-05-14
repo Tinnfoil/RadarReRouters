@@ -38,6 +38,7 @@ class SpatialSound extends Phaser.GameObjects.GameObject{
         let l_pan_ratio = ((pan_ratio * pan_ratio * pan_ratio) + 1) / 2;
         let r_pan_ratio = (-(pan_ratio * pan_ratio * pan_ratio) + 1) / 2;
 
+        // apply spatialization to L and R channels
         this.l.volume = this.base_volume * dist_ratio * l_pan_ratio; 
         this.r.volume = this.base_volume * dist_ratio * r_pan_ratio; 
     }
