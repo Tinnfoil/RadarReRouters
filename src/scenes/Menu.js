@@ -5,9 +5,15 @@ class Menu extends Phaser.Scene{
     }
 
     preload(){
+        this.load.image('titlescreen', "./assets/Title_Screen.png");
+        this.load.image('startbutton', "./assets/Start_Button.png");
     }
 
     create() {
+        this.titleScreen = this.add.sprite(0, 0, 'titlescreen').setOrigin(0, 0);
+
+        this.startButton = this.add.sprite(game.config.width/2, game.config.height/3, 'startbutton');
+
         this.scene.start('playScene');  
     }
 
