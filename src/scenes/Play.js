@@ -9,7 +9,7 @@ class Play extends Phaser.Scene{
         this.load.image("drawfinger", "./assets/TestFinger.png");
         this.load.image("island", "./assets/Island.png");
         this.load.image("enemyboat", "./assets/Ship_02.png");
-        this.load.image("backgroundgrid", "./assets/grid.png");
+        this.load.image("backgroundgrid", "./assets/Grid.png");
         this.load.image("objective", "./assets/TestObjective.png");
     }
 
