@@ -11,6 +11,8 @@ class Menu extends Phaser.Scene{
         this.load.audio('a_r', './assets/audio/drone_a_r.wav');
         this.load.audio('d_l', './assets/audio/drone_d_l.wav');
         this.load.audio('d_r', './assets/audio/drone_d_r.wav');
+        this.load.audio('blip_l', './assets/audio/blips_l.wav');
+        this.load.audio('blip_r', './assets/audio/blips_r.wav');
     }
 
     create() {
