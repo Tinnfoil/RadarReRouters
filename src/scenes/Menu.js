@@ -13,12 +13,15 @@ class Menu extends Phaser.Scene{
         this.titleScreen = this.add.sprite(0, 0, 'titlescreen').setOrigin(0, 0);
 
         this.startButton = this.add.sprite(game.config.width/2, game.config.height/3, 'startbutton');
+        this.startButton.setInteractive();
 
-        this.scene.start('playScene');  
+        this.startButton.on('pointerover', () => { this.startButton.alpha = .5;});
+        this.startButton.on('pointerout', () => { this.startButton.alpha = 1;});
+        this.startButton.on('pointerdown', () => { this.scene.start('playScene');});
     }
 
     update() {
-           
+
     }
 }
 
