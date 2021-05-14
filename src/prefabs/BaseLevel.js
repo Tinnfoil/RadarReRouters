@@ -15,8 +15,8 @@ class BaseLevel extends Phaser.GameObjects.GameObject{
         this.ObjectiveList.add(objectivepoint);
     }
 
-    createEnemy(path, points, speed, delay, sprite){
-        let enemy = new Enemy(this.scene, path, points, speed, delay, sprite);
+    createEnemy(path, points, speed, delay, sprite, sfx_key){
+        let enemy = new Enemy(this.scene, path, points, speed, delay, sprite, sfx_key);
         this.EnemyList.add(enemy);
     }
 
@@ -38,6 +38,11 @@ class BaseLevel extends Phaser.GameObjects.GameObject{
                 console.log("collided with enemy boat");
             }
         }
+    }
 
+    updateSFX() {
+        for (let i = 0; i < this.EnemyList.length; i++) {
+            this.EnemyList.getAt(i).update();
+        }
     }
 }

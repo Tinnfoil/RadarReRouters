@@ -17,7 +17,8 @@ class Level1 extends BaseLevel{
             -50, 200], 
             1.5,
             0, 
-            'enemyboat'
+            'enemyboat',
+            'a'
         );
             
         this.createEnemy(
@@ -26,9 +27,10 @@ class Level1 extends BaseLevel{
             600, 200,
             250, 500,
             -50, 300],
-            1.5,
+            1.45,
             1000,
-            'enemyboat'
+            'enemyboat',
+            'd'
         );
     }
 }

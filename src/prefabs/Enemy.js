@@ -1,5 +1,5 @@
 class Enemy extends Phaser.GameObjects.PathFollower {
-    constructor(scene, path, points, speed, delay, sprite) {
+    constructor(scene, path, points, speed, delay, sprite, sfx_key) {
         super(scene, path, points[0], points[1], sprite); 
         scene.add.existing(this);
 
@@ -31,5 +31,12 @@ class Enemy extends Phaser.GameObjects.PathFollower {
             yoyo: false,
             rotateToPath: true
         });
+
+        this.sfx = new SpatialSound(scene, this, sfx_key, 0.33, true, 150, 600);
+        this.sfx.play();
+    }
+
+    update() {
+        this.sfx.update();
     }
 }

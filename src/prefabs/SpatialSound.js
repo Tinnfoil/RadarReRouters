@@ -1,11 +1,11 @@
 class SpatialSound extends Phaser.GameObjects.GameObject{
-    constructor(scene, parent, l_key, r_key, volume, loop, min_distance, max_distance) {
+    constructor(scene, parent, key, volume, loop, min_distance, max_distance) {
         super(scene, parent.x, parent.y);
         this.scene = scene;
         this.parent = parent;
 
-        this.l = this.scene.sound.add(l_key, {volume: volume, loop: loop});
-        this.r = this.scene.sound.add(r_key, {volume: volume, loop: loop});
+        this.l = this.scene.sound.add(key + '_l', {volume: volume, loop: loop});
+        this.r = this.scene.sound.add(key + '_r', {volume: volume, loop: loop});
 
         this.min_dist = min_distance;
         this.max_dist = max_distance;

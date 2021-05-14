@@ -141,6 +141,7 @@ class Play extends Phaser.Scene{
         }
 
         this.level.checkCollisions(this.playerBoat);
+        this.level.updateSFX();
         this.playerBoat.update(time, delta);
     }
     

@@ -7,10 +7,10 @@ class Menu extends Phaser.Scene{
     preload(){
         this.load.image('titlescreen', "./assets/Title_Screen.png");
         this.load.image('startbutton', "./assets/Start_Button.png");
-        this.load.audio('l', './assets/audio/l_drone.wav');
-        this.load.audio('r', './assets/audio/r_drone.wav');
-        this.load.audio('l', './assets/audio/l_drone.wav');
-        this.load.audio('r', './assets/audio/r_drone.wav');
+        this.load.audio('a_l', './assets/audio/drone_a_l.wav');
+        this.load.audio('a_r', './assets/audio/drone_a_r.wav');
+        this.load.audio('d_l', './assets/audio/drone_d_l.wav');
+        this.load.audio('d_r', './assets/audio/drone_d_r.wav');
     }
 
     create() {
