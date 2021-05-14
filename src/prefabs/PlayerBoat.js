@@ -14,6 +14,8 @@ class PlayerBoat extends Phaser.GameObjects.PathFollower {
         this.targetAngle = 0;
         // a circle radius to check collisions from
         this.colRad = 20;
+
+        this.sfx = new SpatialSound(scene, this, 'l', 'r', 0.2, true,  150, 600);
     }
 
     update(time, delta) {
@@ -39,7 +41,6 @@ class PlayerBoat extends Phaser.GameObjects.PathFollower {
                 this.updateInterval += delta;
         }
 
+        this.sfx.update();
     }
-
-
 }

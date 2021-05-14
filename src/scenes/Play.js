@@ -91,6 +91,8 @@ class Play extends Phaser.Scene{
         });
         this.mouseFreeze = true;
         this.drawInterval = 0;
+
+        this.playerBoat.sfx.play();
     }
 
     update(time, delta) {  
