@@ -10,8 +10,8 @@ class BaseLevel extends Phaser.GameObjects.GameObject{
         console.log("No Level to create");
     }
 
-    createObjective(x, y){
-        let objectivepoint = new ObjectivePoint(this.scene, x, y);
+    createObjective(x, y, sfx_key){
+        let objectivepoint = new ObjectivePoint(this.scene, x, y, sfx_key);
         this.ObjectiveList.add(objectivepoint);
     }
 
