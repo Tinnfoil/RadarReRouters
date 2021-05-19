@@ -131,7 +131,6 @@ class Play extends Phaser.Scene{
             if(this.boatPath == null){
 
                 this.boatPath = this.add.path(touchX, touchY);
-                this.boatCurve = new Phaser.Curves.Spline([touchX, touchY]);
                 this.lastX = touchX;
                 this.lastY = touchY;
                 this.lastlastX = this.lastX - 1;
