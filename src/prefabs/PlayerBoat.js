@@ -3,7 +3,7 @@ class PlayerBoat extends Phaser.GameObjects.PathFollower {
         super(scene, path, positionX, positionY, 'playerboat'); 
 
         scene.add.existing(this);               // add to existing scene, displayList, updateList
-        //scene.physics.add.existing(this);       // add to physics system
+        this.scene = scene;
 
         this.scale = .15;
 
@@ -15,11 +15,22 @@ class PlayerBoat extends Phaser.GameObjects.PathFollower {
         // a circle radius to check collisions from
         this.colRad = 20;
 
+        this.setInteractive();
+        this.on('pointerdown', () => { 
+            scene.CheckDraw();
+        });
+
         this.sfx = new SpatialSound(scene, this, 'blip', 0.5, true,  150, 600);
+    }
+
+    Destroy(){
+        this.sfx.stop();
+        this.destroy();
     }
 
     update(time, delta) {
         
+        /*
         if(this.updateInterval >= 0){
                 let diffx = this.x - this.lastX;
                 let diffy = this.y - this.lastY;
@@ -40,6 +51,7 @@ class PlayerBoat extends Phaser.GameObjects.PathFollower {
         else{
                 this.updateInterval += delta;
         }
+        */
 
         this.sfx.update();
     }

@@ -47,4 +47,9 @@ class SpatialSound extends Phaser.GameObjects.GameObject{
         this.l.play();
         this.r.play();
     }
+
+    stop(){
+        this.l.stop();
+        this.r.stop();
+    }
 }

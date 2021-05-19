@@ -10,6 +10,22 @@ class BaseLevel extends Phaser.GameObjects.GameObject{
         console.log("No Level to create");
     }
 
+    resetLevel(){
+        for (let i = 0; i < this.ObjectiveList.length; i++) {
+            this.ObjectiveList.getAt(i).DestroySelf();
+            this.ObjectiveList.removeAt(i);
+            i--;
+        }
+            
+        for (let i = 0; i < this.EnemyList.length; i++) {
+            this.EnemyList.getAt(i).DestroySelf();
+            this.EnemyList.removeAt(i);
+            i--;
+        }
+
+        this.createLevel();
+    }
+
     createObjective(x, y, sfx_key){
         let objectivepoint = new ObjectivePoint(this.scene, x, y, sfx_key);
         this.ObjectiveList.add(objectivepoint);
@@ -36,6 +52,7 @@ class BaseLevel extends Phaser.GameObjects.GameObject{
             if(Phaser.Math.Distance.BetweenPoints( playerBoat, this.EnemyList.getAt(i)) < playerBoat.colRad + this.EnemyList.getAt(i).colRad)
             {
                 console.log("collided with enemy boat");
+                this.scene.ResetLevel();
             }
         }
     }

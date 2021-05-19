@@ -13,9 +13,9 @@ class Enemy extends Phaser.GameObjects.PathFollower {
         this.path = new Phaser.Curves.Spline(points);
 
         // draw path for debug purposes
-        let graphics = scene.add.graphics();
-        graphics.lineStyle(1, 0xffffff, 0.5);
-        this.path.draw(graphics, 128);
+        this.graphics = scene.add.graphics();
+        this.graphics.lineStyle(1, 0xffffff, 0.5);
+        this.path.draw(this.graphics, 128);
 
         let pathlength = this.path.getLength();
 
@@ -38,5 +38,11 @@ class Enemy extends Phaser.GameObjects.PathFollower {
 
     update() {
         this.sfx.update();
+    }
+
+    DestroySelf(){
+        this.sfx.stop();
+        this.graphics.clear();
+        this.destroy();
     }
 }

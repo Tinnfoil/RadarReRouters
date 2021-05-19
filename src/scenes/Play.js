@@ -11,6 +11,7 @@ class Play extends Phaser.Scene{
         this.load.image("enemyboat", "./assets/Ship_02.png");
         this.load.image("backgroundgrid", "./assets/Grid.png");
         this.load.image("objective", "./assets/TestObjective.png");
+        this.load.image("restart",  "./assets/Restart.png");
     }
 
     create() {
@@ -35,8 +36,6 @@ class Play extends Phaser.Scene{
 
         // Initialize the gameobject the player will use as the boat
         this.playerBoat = new PlayerBoat(this, null, 64, gameHeight - 64);
-        this.playerBoat.setInteractive();
-        this.playerBoat.on('pointerdown', () => { this.mouseFreeze = false;});
 
         // Create level and initialize it
         this.level = new Level1(this);
@@ -62,9 +61,21 @@ class Play extends Phaser.Scene{
             add: true
         });
 
-        this.goButton = this.add.sprite(gameWidth - 128, gameHeight - 32, 'gobutton').setOrigin(0, 1);
+        // Draw Go button
+        this.goButton = this.add.sprite(gameWidth - 128, gameHeight - 96, 'gobutton').setOrigin(0, 0);
         this.goButton.setInteractive();
         this.goButton.on('pointerdown', () => { this.FollowPath(); });
+    
+        // Draw redo button
+        this.redoButton = this.add.sprite(gameWidth - 32, gameHeight - 128 - 32, 'restart').setOrigin(0,0);
+        this.redoButton.setInteractive();
+        this.redoButton.on('pointerdown', () => { this.ResetLevel(); });
+    }
+
+    CheckDraw(){
+        if(this.boatPath == null){
+            this.mouseFreeze = false;
+        }
     }
 
     FollowPath(){
@@ -85,7 +96,7 @@ class Play extends Phaser.Scene{
             duration: (pathlength * 10) / 2,
             ease: 'Power0',
             hold: 0,
-            repeat: -1,
+            repeat: 0,
             yoyo: false,
             //rotateToPath: true
         });
@@ -95,13 +106,25 @@ class Play extends Phaser.Scene{
         this.playerBoat.sfx.play();
     }
 
+    ResetLevel(){
+        if(this.boatPath == null) return;
+        //Reset Player Position
+        this.boatPath.destroy(); this.boatPath = null;
+        this.playerBoat.Destroy();
+        this.playerBoat = new PlayerBoat(this, null, 64, gameHeight - 64);
+        this.graphics.clear();
+        this.mouseFreeze = true;
+        this.level.resetLevel();
+    }
+
     update(time, delta) {  
         //var pointer = this.input.activePointer;
+ 
         if (this.mouse.isDown && this.drawInterval <= 0 && this.mouseFreeze == false) {
             let touchX = this.mouse.x;
             let touchY = this.mouse.y;
-            
             if(this.boatPath == null){
+
                 this.boatPath = this.add.path(touchX, touchY);
                 this.boatCurve = new Phaser.Curves.Spline([touchX, touchY]);
                 this.lastX = touchX;
