@@ -4,6 +4,8 @@ class BaseLevel extends Phaser.GameObjects.GameObject{
         this.scene = scene;
         this.ObjectiveList = new Phaser.Structs.List(this.scene);
         this.EnemyList = new Phaser.Structs.List(this.scene);
+
+        this.createLevel();
     }
 
     createLevel(){
@@ -11,6 +13,11 @@ class BaseLevel extends Phaser.GameObjects.GameObject{
     }
 
     resetLevel(){
+        this.clearLevel();
+        this.createLevel();
+    }
+
+    clearLevel(){
         for (let i = 0; i < this.ObjectiveList.length; i++) {
             this.ObjectiveList.getAt(i).DestroySelf();
             this.ObjectiveList.removeAt(i);
@@ -22,8 +29,6 @@ class BaseLevel extends Phaser.GameObjects.GameObject{
             this.EnemyList.removeAt(i);
             i--;
         }
-
-        this.createLevel();
     }
 
     createObjective(x, y, sfx_key){
@@ -46,6 +51,11 @@ class BaseLevel extends Phaser.GameObjects.GameObject{
                 this.ObjectiveList.removeAt(i);
                 i--;
             }
+        }
+
+        // Win condition
+        if(this.ObjectiveList.length == 0){
+            this.scene.SetLevel(this.scene.levelNumber+1);
         }
 
         for (let i = 0; i < this.EnemyList.length; i++) {

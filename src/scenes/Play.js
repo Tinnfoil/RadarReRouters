@@ -38,8 +38,8 @@ class Play extends Phaser.Scene{
         this.playerBoat = new PlayerBoat(this, null, 64, gameHeight - 64);
 
         // Create level and initialize it
-        this.level = new Level1(this);
-        this.level.createLevel();
+        this.levelNumber = 1;
+        this.level = this.SetLevel(1);
 
         // Draw indicator for drawing
         this.drawFinger = this.add.sprite(105, game.config.height - 64, 'drawfinger').setOrigin(0, 0);
@@ -108,7 +108,7 @@ class Play extends Phaser.Scene{
 
     ResetLevel(){
         if(this.boatPath == null) return;
-        //Reset Player Position
+        //Reset Player Position 
         this.boatPath.destroy(); this.boatPath = null;
         this.playerBoat.Destroy();
         this.playerBoat = new PlayerBoat(this, null, 64, gameHeight - 64);
@@ -167,5 +167,24 @@ class Play extends Phaser.Scene{
         this.level.updateSFX();
         this.playerBoat.update(time, delta);
     }
+
+    SetLevel(levelnum){
+        this.levelNumber = levelnum;
+        if(this.level != null) {this.level.clearLevel();}
+        switch(levelnum) {
+            case 1:
+                this.level = new Level1(this);
+              break;
+            case 2:
+                this.level = new Level2(this);
+              break;
+            default:
+                this.levelNumber = 1;
+                this.level = new Level1(this);
+        }
+        this.ResetLevel();
+        return this.level;
+    }
+    
     
 }
