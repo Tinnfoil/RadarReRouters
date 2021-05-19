@@ -1,6 +1,6 @@
 class Level2 extends BaseLevel{
-    constructor(scene) {
-        super(scene); 
+    constructor(scene, x = 0, y = 0) {
+        super(scene, x, y); 
     }
 
     createLevel(){
@@ -18,7 +18,5 @@ class Level2 extends BaseLevel{
             'enemyboat',
             'a'
         );
-            
-
     }
 }

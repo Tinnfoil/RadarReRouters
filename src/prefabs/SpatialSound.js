@@ -14,8 +14,8 @@ class SpatialSound extends Phaser.GameObjects.GameObject{
 
     update() {
         // get coordinates of main camera, to act as our listener
-        let cam_x = this.scene.cameras.main.centerX;
-        let cam_y = this.scene.cameras.main.centerY;
+        let cam_x = this.scene.cameras.main.scrollX + gameWidth/2;
+        let cam_y = this.scene.cameras.main.scrollY + gameHeight/2;
 
         // get distance between source and main camera
         let dist = Phaser.Math.Distance.Between(cam_x, cam_y, this.parent.x, this.parent.y);

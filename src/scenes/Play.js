@@ -17,7 +17,10 @@ class Play extends Phaser.Scene{
     create() {
         this.cameras.main.setBackgroundColor('#000000')
         this.grid = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'backgroundgrid').setOrigin(0, 0);
-        
+        this.grid.setScrollFactor(0);
+
+        this.cameras.main.setLerp(0.5);
+
         // Set up the mouse
         this.mouse = this.input.activePointer;
         this.drawInterval = 0;
@@ -61,14 +64,16 @@ class Play extends Phaser.Scene{
             add: true
         });
 
-        // Draw Go button
-        this.goButton = this.add.sprite(gameWidth - 128, gameHeight - 96, 'gobutton').setOrigin(0, 0);
+        // Draw Go button as fixed UI element
+        this.goButton = this.add.image(gameWidth - 128, gameHeight - 96, 'gobutton').setOrigin(0, 0);
         this.goButton.setInteractive();
+        this.goButton.setScrollFactor(0); // fix to camera
         this.goButton.on('pointerdown', () => { this.FollowPath(); });
     
-        // Draw redo button
-        this.redoButton = this.add.sprite(gameWidth - 32, gameHeight - 128 - 32, 'restart').setOrigin(0,0);
+        // Draw redo button as fixed UI element
+        this.redoButton = this.add.image(gameWidth - 32, gameHeight - 128 - 32, 'restart').setOrigin(0,0);
         this.redoButton.setInteractive();
+        this.redoButton.setScrollFactor(0); // fix to camera
         this.redoButton.on('pointerdown', () => { this.ResetLevel(); });
     }
 
@@ -111,7 +116,7 @@ class Play extends Phaser.Scene{
         //Reset Player Position 
         this.boatPath.destroy(); this.boatPath = null;
         this.playerBoat.Destroy();
-        this.playerBoat = new PlayerBoat(this, null, 64, gameHeight - 64);
+        this.playerBoat = new PlayerBoat(this, null, this.level.x + 64, this.level.y + gameHeight - 64);
         this.graphics.clear();
         this.mouseFreeze = true;
         this.level.resetLevel();
@@ -121,8 +126,8 @@ class Play extends Phaser.Scene{
         //var pointer = this.input.activePointer;
  
         if (this.mouse.isDown && this.drawInterval <= 0 && this.mouseFreeze == false) {
-            let touchX = this.mouse.x;
-            let touchY = this.mouse.y;
+            let touchX = this.mouse.x + this.level.x;
+            let touchY = this.mouse.y + this.level.y;
             if(this.boatPath == null){
 
                 this.boatPath = this.add.path(touchX, touchY);
@@ -166,6 +171,12 @@ class Play extends Phaser.Scene{
         this.level.checkCollisions(this.playerBoat);
         this.level.updateSFX();
         this.playerBoat.update(time, delta);
+
+        console.log (this.cameras.main.centerX, this.cameras.main.centerY);
+
+        // update tilesprite
+        this.grid.tilePositionX = this.cameras.main.scrollX;
+        this.grid.tilePositionY = this.cameras.main.scrollY;
     }
 
     SetLevel(levelnum){
@@ -176,13 +187,14 @@ class Play extends Phaser.Scene{
                 this.level = new Level1(this);
               break;
             case 2:
-                this.level = new Level2(this);
+                this.level = new Level2(this, 1000, -500);
               break;
             default:
                 this.levelNumber = 1;
                 this.level = new Level1(this);
         }
         this.ResetLevel();
+        this.level.moveToLevel();
         return this.level;
     }
     

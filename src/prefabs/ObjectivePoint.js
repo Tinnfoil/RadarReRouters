@@ -13,8 +13,12 @@ class ObjectivePoint extends Phaser.GameObjects.Sprite {
         
     }
 
-    DestroySelf(){
+    Collect() {
         this.sfx.play();
+        this.DestroySelf();
+    }
+
+    DestroySelf(){
         this.destroy();
     }
 
