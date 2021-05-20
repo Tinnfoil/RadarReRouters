@@ -12,6 +12,7 @@ class Play extends Phaser.Scene{
         this.load.image("backgroundgrid", "./assets/Grid.png");
         this.load.image("objective", "./assets/TestObjective.png");
         this.load.image("restart",  "./assets/Restart.png");
+        this.load.image("exitpoint", "./assets/exit.png");
     }
 
     create() {

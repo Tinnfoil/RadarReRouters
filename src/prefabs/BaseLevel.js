@@ -4,6 +4,7 @@ class BaseLevel extends Phaser.GameObjects.GameObject{
         this.scene = scene;
         this.ObjectiveList = new Phaser.Structs.List(this.scene);
         this.EnemyList = new Phaser.Structs.List(this.scene);
+        this.ExitPoint = null;
 
         this.x = x;
         this.y = y;
@@ -75,7 +76,14 @@ class BaseLevel extends Phaser.GameObjects.GameObject{
 
         // Win condition
         if(this.ObjectiveList.length == 0){
-            this.scene.SetLevel(this.scene.levelNumber+1);
+            
+            // Now check for LZ for final objective
+            if(Phaser.Math.Distance.BetweenPoints(playerBoat, this.ExitPoint) <  playerBoat.colRad + this.ExitPoint.colRad) 
+            {
+                this.ExitPoint.getAt(i).Collect();
+                this.scene.SetLevel(this.scene.levelNumber+1);
+            }
+
         }
 
         for (let i = 0; i < this.EnemyList.length; i++) {
