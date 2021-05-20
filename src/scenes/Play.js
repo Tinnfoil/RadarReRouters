@@ -172,7 +172,7 @@ class Play extends Phaser.Scene{
         this.level.updateSFX();
         this.playerBoat.update(time, delta);
 
-        console.log (this.cameras.main.centerX, this.cameras.main.centerY);
+        //console.log (this.cameras.main.scrollX, this.cameras.main.scrollY);
 
         // update tilesprite
         this.grid.tilePositionX = this.cameras.main.scrollX;
