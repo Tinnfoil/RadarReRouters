@@ -8,6 +8,7 @@ class Level1 extends BaseLevel{
         this.createObjective(gameWidth/2, gameHeight/2, 'bum');
         this.createObjective(gameWidth/2 - 300, gameHeight/2 + 100, 'bum');
         this.createObjective(gameWidth/2 + 200, gameHeight/2 - 200, 'bum');
+        this.createFinalObjective(gameWidth/2 + 300, gameHeight/2 - 300, 'bum');
 
         this.createEnemy(
             null, 

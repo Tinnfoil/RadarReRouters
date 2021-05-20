@@ -41,11 +41,18 @@ class BaseLevel extends Phaser.GameObjects.GameObject{
             this.EnemyList.removeAt(i);
             i--;
         }
+
+        if(this.ExitPoint != null){this.ExitPoint.DestroySelf();}
     }
 
     createObjective(x, y, sfx_key){
         let objectivepoint = new ObjectivePoint(this.scene, x + this.x, y + this.y, sfx_key);
         this.ObjectiveList.add(objectivepoint);
+    }
+
+    createFinalObjective(x, y, sfx_key){
+        let finalobjectivepoint = new FinalObjectivePoint(this.scene, x + this.x, y + this.y, sfx_key);
+        this.ExitPoint = finalobjectivepoint;
     }
 
     createEnemy(path, points, speed, delay, sprite, sfx_key){
@@ -74,24 +81,26 @@ class BaseLevel extends Phaser.GameObjects.GameObject{
             }
         }
 
-        // Win condition
-        if(this.ObjectiveList.length == 0){
-            
-            // Now check for LZ for final objective
-            if(Phaser.Math.Distance.BetweenPoints(playerBoat, this.ExitPoint) <  playerBoat.colRad + this.ExitPoint.colRad) 
-            {
-                this.ExitPoint.getAt(i).Collect();
-                this.scene.SetLevel(this.scene.levelNumber+1);
-            }
-
-        }
-
         for (let i = 0; i < this.EnemyList.length; i++) {
             if(Phaser.Math.Distance.BetweenPoints( playerBoat, this.EnemyList.getAt(i)) < playerBoat.colRad + this.EnemyList.getAt(i).colRad)
             {
                 console.log("collided with enemy boat");
                 this.scene.ResetLevel();
             }
+        }
+
+        // Win condition
+        if(this.ObjectiveList.length == 0){
+            
+            // Now check for LZ for final objective
+            if(Phaser.Math.Distance.BetweenPoints(playerBoat, this.ExitPoint) <  playerBoat.colRad + this.ExitPoint.colRad) 
+            {
+                this.ExitPoint.Collect();
+                this.ExitPoint.DestroySelf();
+                this.ExitPoint = null;
+                this.scene.SetLevel(this.scene.levelNumber+1);
+            }
+        
         }
     }
 

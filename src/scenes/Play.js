@@ -22,6 +22,9 @@ class Play extends Phaser.Scene{
 
         this.cameras.main.setLerp(0.5);
 
+        // Set Keyboard controls
+        keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+
         // Set up the mouse
         this.mouse = this.input.activePointer;
         this.drawInterval = 0;
@@ -85,7 +88,8 @@ class Play extends Phaser.Scene{
     }
 
     FollowPath(){
-        console.log("Start Path");
+        if(this.boatPath == null){return;}
+        
         let x = this.boatPath.getStartPoint().x;
         let y = this.boatPath.getStartPoint().y;  
         
@@ -124,7 +128,10 @@ class Play extends Phaser.Scene{
     }
 
     update(time, delta) {  
-        //var pointer = this.input.activePointer;
+        
+        if (Phaser.Input.Keyboard.JustDown(keySPACE)) {
+            this.FollowPath();
+        }
  
         if (this.mouse.isDown && this.drawInterval <= 0 && this.mouseFreeze == false) {
             let touchX = this.mouse.x + this.level.x;
