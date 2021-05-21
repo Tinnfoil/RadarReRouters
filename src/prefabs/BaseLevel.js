@@ -8,8 +8,8 @@ class BaseLevel extends Phaser.GameObjects.GameObject{
 
         this.x = x;
         this.y = y;
-        this.w = w;
-        this.h = h;
+        //this.w = w;
+        //this.h = h;
 
         this.camera = this.scene.cameras.main;
 
@@ -19,10 +19,9 @@ class BaseLevel extends Phaser.GameObjects.GameObject{
     createLevel(){
         console.log("No Level to create");
     }
-
-    moveToLevel() {
+/*  moveToLevel() {
         this.camera.pan(this.x + this.w/2, this.y + this.h/2, 5000, 'Sine.easeInOut');
-    }
+    } */
 
     resetLevel(){
         this.clearLevel();

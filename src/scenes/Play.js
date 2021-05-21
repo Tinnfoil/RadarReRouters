@@ -45,8 +45,11 @@ class Play extends Phaser.Scene{
         this.playerBoat = new PlayerBoat(this, null, 64, gameHeight - 64);
 
         // Create level and initialize it
-        this.levelNumber = 1;
-        this.level = this.SetLevel(1);
+        this.levelNumber;
+        this.level = this.SetLevel();
+
+        // For pausing updates while transitioning
+        this.isCameraMove = false;
 
         // Draw indicator for drawing
         this.drawFinger = this.add.sprite(105, game.config.height - 64, 'drawfinger').setOrigin(0, 0);
@@ -177,7 +180,9 @@ class Play extends Phaser.Scene{
             this.drawInterval -= delta;
         }
 
-        this.level.checkCollisions(this.playerBoat);
+        if (!this.isCameraMove) {
+            this.level.checkCollisions(this.playerBoat);
+        }
         this.level.updateSFX();
         this.playerBoat.update(time, delta);
 
@@ -188,9 +193,9 @@ class Play extends Phaser.Scene{
         this.grid.tilePositionY = this.cameras.main.scrollY;
     }
 
-    SetLevel(levelnum){
+    SetLevel(levelnum = null){
         this.levelNumber = levelnum;
-        if(this.level != null) {this.level.clearLevel();}
+        this.lastLevel = this.level; // add reference to current level before transitoning
         switch(levelnum) {
             case 1:
                 this.level = new Level1(this);
@@ -202,10 +207,27 @@ class Play extends Phaser.Scene{
                 this.levelNumber = 1;
                 this.level = new Level1(this);
         }
-        this.ResetLevel();
-        this.level.moveToLevel();
+        this.level.createLevel(); // create new level before transitoning
+        if (this.lastLevel != null) {
+            this.levelTransition();
+        }
         return this.level;
     }
+
+    levelTransition() {
+        this.isCameraMove = true;
+        this.lastLevel
+        this.cameras.main.pan(this.level.x + gameWidth/2, this.level.y + gameHeight/2, 3000, 'Sine.easeInOut', false, this.transistionCallback);
+    }
     
-    
+    transistionCallback(cam = null, progress = 0) {
+        this.lastLevel.updateSFX();
+        if (progress == 1) {
+            console.log("transition complete");
+            this.isCameraMove = false;
+            this.lastLevel.clearLevel();
+            this.lastLevel = null;;
+            this.ResetLevel();
+        }
+    }  
 }
