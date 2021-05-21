@@ -45,7 +45,7 @@ let screenHeight = game.config.height;
 let gameWidth    = screenWidth - (2 * border);
 let gameHeight   = screenHeight - (2 * border);
 
-
+let screenRatio = screenWidth/screenHeight;
 
 // Set Keyboard keys
 let keySPACE;

@@ -8,13 +8,16 @@ class Enemy extends Phaser.GameObjects.PathFollower {
         this.colRad = 20;
         this.flipY = true;
 
-        // taken from the phaser examples:
-        // https://phaser.io/examples/v3/view/paths/followers/rotate-to-path
-        this.path = new Phaser.Curves.Spline(points);
+        if (points.length > 4) {
+            // taken from the phaser examples:
+            // https://phaser.io/examples/v3/view/paths/followers/rotate-to-path
+            this.path = new Phaser.Curves.Spline(points);
+        } else {
+            this.path = new Phaser.Curves.Line(points);
+        }
 
         this.delay = delay;
         this.speed = speed;
-
         this.visible = false;
 
         // draw path for debug purposes
@@ -31,7 +34,6 @@ class Enemy extends Phaser.GameObjects.PathFollower {
 
     start() {
         this.visible = true;
-        
         let pathlength = this.path.getLength();
 
         // start along path

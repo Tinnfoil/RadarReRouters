@@ -5,17 +5,17 @@ class Level1 extends BaseLevel{
 
     createLevel(){
         console.log("Level 1 Creation");
-        this.createObjective(screenWidth/2, screenHeight/2, 'bum');
+        this.createObjective(0.5, 0.5, 'bum');
         //this.createObjective(gameWidth/2 - 300, gameHeight/2 + 100, 'bum');
         //this.createObjective(gameWidth/2 + 200, gameHeight/2 - 200, 'bum');
         //this.createFinalObjective(screenWidth/2 + 300, screenHeight/2 - 300, 'bum');
 
         this.createEnemy(
             null, 
-            [1000, 300,
-            500, 100,
-            280, 350,
-            -50, 200], 
+            [1, 0.3,
+            0.6, 0.7,
+            0.5, 0.3,
+            0, 0.6], 
             1.5,
             0, 
             'enemyboat',
