@@ -5,13 +5,11 @@ class Play extends Phaser.Scene{
 
     preload(){
         this.load.image("playerboat", "./assets/Ship_01.png");
-        this.load.image("gobutton", "./assets/TestGoButton.png");
         this.load.image("drawfinger", "./assets/TestFinger.png");
         this.load.image("island", "./assets/Island.png");
         this.load.image("enemyboat", "./assets/Ship_02.png");
         this.load.image("backgroundgrid", "./assets/Grid.png");
         this.load.image("objective", "./assets/TestObjective.png");
-        this.load.image("restart",  "./assets/Restart.png");
         this.load.image("exitpoint", "./assets/exit.png");
     }
 
@@ -19,8 +17,6 @@ class Play extends Phaser.Scene{
         this.cameras.main.setBackgroundColor('#000000')
         this.grid = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'backgroundgrid').setOrigin(0, 0);
         this.grid.setScrollFactor(0);
-
-        this.cameras.main.setLerp(0.5);
 
         // Set Keyboard controls
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
@@ -47,6 +43,7 @@ class Play extends Phaser.Scene{
         // Create level and initialize it
         this.levelNumber;
         this.level = this.SetLevel();
+        this.level.startLevel();
 
         // For pausing updates while transitioning
         this.isCameraMove = false;
@@ -71,17 +68,11 @@ class Play extends Phaser.Scene{
             add: true
         });
 
-        // Draw Go button as fixed UI element
-        this.goButton = this.add.image(gameWidth - 128, gameHeight - 96, 'gobutton').setOrigin(0, 0);
-        this.goButton.setInteractive();
-        this.goButton.setScrollFactor(0); // fix to camera
-        this.goButton.on('pointerdown', () => { this.FollowPath(); });
-    
-        // Draw redo button as fixed UI element
-        this.redoButton = this.add.image(gameWidth - 32, gameHeight - 128 - 32, 'restart').setOrigin(0,0);
-        this.redoButton.setInteractive();
-        this.redoButton.setScrollFactor(0); // fix to camera
-        this.redoButton.on('pointerdown', () => { this.ResetLevel(); });
+        this.scene.launch('uiScene');
+        this.ui = this.scene.get('uiScene');
+        this.ui.events.on('followPath', this.FollowPath, this);
+        this.ui.events.on('resetLevel', this.ResetLevel, this);
+
     }
 
     CheckDraw(){
@@ -207,7 +198,7 @@ class Play extends Phaser.Scene{
                 this.levelNumber = 1;
                 this.level = new Level1(this);
         }
-        this.level.createLevel(); // create new level before transitoning
+        //this.level.createLevel(); // create new level before transitoning
         if (this.lastLevel != null) {
             this.levelTransition();
         }
@@ -216,7 +207,7 @@ class Play extends Phaser.Scene{
 
     levelTransition() {
         this.isCameraMove = true;
-        this.lastLevel
+        this.lastLevel.stopLevel();
         this.cameras.main.pan(this.level.x + gameWidth/2, this.level.y + gameHeight/2, 3000, 'Sine.easeInOut', false, this.transistionCallback);
     }
     
