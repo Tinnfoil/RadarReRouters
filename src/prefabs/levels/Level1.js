@@ -1,6 +1,6 @@
 class Level1 extends BaseLevel{
-    constructor(scene, x = 0, y = 0) {
-        super(scene, x, y); 
+    constructor(scene) {
+        super(scene); 
     }
 
     createLevel(){

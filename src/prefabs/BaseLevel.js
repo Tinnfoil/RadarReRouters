@@ -1,13 +1,13 @@
 class BaseLevel extends Phaser.GameObjects.GameObject{
-    constructor(scene, x = 0, y = 0) {
-        super(scene, x, y); 
+    constructor(scene) {
+        super(scene); 
         this.scene = scene;
         this.ObjectiveList = new Phaser.Structs.List(this.scene);
         this.EnemyList = new Phaser.Structs.List(this.scene);
         this.ExitPoint = null;
 
-        this.x = x;
-        this.y = y;
+        this.x = this.scene.playerBoat.x - 64;
+        this.y = this.scene.playerBoat.y + 64 - gameHeight;
 
         this.camera = this.scene.cameras.main;
 
@@ -25,7 +25,6 @@ class BaseLevel extends Phaser.GameObjects.GameObject{
     }
 
     stopLevel() {
-
         for (let i = 0; i < this.EnemyList.length; i++) {
             this.EnemyList.getAt(i).stopFollow();
         }
@@ -106,6 +105,7 @@ class BaseLevel extends Phaser.GameObjects.GameObject{
                 this.ExitPoint.Collect();
                 this.ExitPoint.DestroySelf();
                 this.ExitPoint = null;
+                playerBoat.stopFollow();
                 this.scene.SetLevel(this.scene.levelNumber+1);
             }
         
