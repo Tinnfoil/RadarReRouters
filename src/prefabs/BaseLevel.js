@@ -3,6 +3,7 @@ class BaseLevel extends Phaser.GameObjects.GameObject{
         super(scene); 
         this.scene = scene;
         this.ObjectiveList = new Phaser.Structs.List(this.scene);
+        this.objectiveHoverCount = 0;
         this.EnemyList = new Phaser.Structs.List(this.scene);
         this.ExitPoint = null;
 
@@ -66,6 +67,7 @@ class BaseLevel extends Phaser.GameObjects.GameObject{
             this.ObjectiveList.removeAt(i);
             i--;
         }
+        this.objectiveHoverCount = 0;
             
         for (let i = 0; i < this.EnemyList.length; i++) {
             this.EnemyList.getAt(i).DestroySelf();
@@ -73,12 +75,15 @@ class BaseLevel extends Phaser.GameObjects.GameObject{
             i--;
         }
 
-        //if(this.ExitPoint != null){this.ExitPoint.DestroySelf();}
+        if(this.ExitPoint != null){
+            this.ExitPoint.UnHover();
+        }
     }
 
     createObjective(x, y, sfx_key){
         let objectivepoint = new ObjectivePoint(this.scene, x + this.x, y + this.y, sfx_key);
         this.ObjectiveList.add(objectivepoint);
+        this.objectiveHoverCount += 1;
     }
 
     createFinalObjective(x, y, sfx_key){
@@ -142,12 +147,13 @@ class BaseLevel extends Phaser.GameObjects.GameObject{
             if(Math.sqrt(Math.pow(obj.y - mousey,2)+Math.pow(obj.x - mousex,2)) < (this.ObjectiveList.getAt(i).colRad + this.scene.playerBoat.colRad)) 
             {
                 console.log("Hovered objective");
+                if(this.ObjectiveList.getAt(i).hovered == false){this.objectiveHoverCount -= 1;}
                 this.ObjectiveList.getAt(i).Hover();
             }
         }
 
         // Now check for LZ for final objective
-        if(Math.sqrt(Math.pow(this.ExitPoint.y - mousey,2)+Math.pow(this.ExitPoint.x - mousex,2))<  this.scene.playerBoat.colRad + this.ExitPoint.colRad) 
+        if(Math.sqrt(Math.pow(this.ExitPoint.y - mousey,2)+Math.pow(this.ExitPoint.x - mousex,2)) < this.scene.playerBoat.colRad + this.ExitPoint.colRad && this.objectiveHoverCount <= 0) 
         {
             this.ExitPoint.Hover();
         }

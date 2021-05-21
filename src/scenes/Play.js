@@ -73,7 +73,6 @@ class Play extends Phaser.Scene{
         this.ui = this.scene.get('uiScene');
         this.ui.events.on('followPath', this.FollowPath, this);
         this.ui.events.on('resetLevel', this.ResetLevel, this);
-
     }
 
     CheckDraw(){
@@ -83,7 +82,7 @@ class Play extends Phaser.Scene{
     }
 
     FollowPath(){
-        if(this.boatPath == null){return;}
+        if(this.boatPath == null || !this.ui.goButton.enabled){return;}
         
         let x = this.boatPath.getStartPoint().x;
         let y = this.boatPath.getStartPoint().y;  
@@ -177,6 +176,9 @@ class Play extends Phaser.Scene{
         if(this.boatPath != null && this.mouse.isDown == false && this.drawing == true){
             if(this.level.ExitPoint.hovered == false){
                 this.drawFinger = this.add.sprite(this.boatPath.getEndPoint().x, this.boatPath.getEndPoint().y, 'drawfinger').setOrigin(0, 0);
+            }
+            else{
+                this.ui.turnOnGoButton();
             }
             this.drawing = false;
         }
