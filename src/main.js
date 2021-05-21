@@ -34,11 +34,18 @@ let config = {
 
 let game = new Phaser.Game(config);
 
+
+
 // Set Globals
-let centerX = game.config.width/2;
-let centerY = game.config.height/2;
-let gameWidth = game.config.width;
-let gameHeight = game.config.height;
+let border = 64;
+let centerX      = game.config.width/2;
+let centerY      = game.config.height/2;
+let screenWidth  = game.config.width;
+let screenHeight = game.config.height;
+let gameWidth    = screenWidth - (2 * border);
+let gameHeight   = screenHeight - (2 * border);
+
+
 
 // Set Keyboard keys
 let keySPACE;

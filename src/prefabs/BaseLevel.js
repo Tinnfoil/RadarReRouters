@@ -1,16 +1,40 @@
 class BaseLevel extends Phaser.GameObjects.GameObject{
-    constructor(scene) {
+    constructor(scene, exitX = gameWidth, exitY = -gameHeight) {
         super(scene); 
         this.scene = scene;
         this.ObjectiveList = new Phaser.Structs.List(this.scene);
         this.EnemyList = new Phaser.Structs.List(this.scene);
         this.ExitPoint = null;
 
-        this.x = this.scene.playerBoat.x - 64;
-        this.y = this.scene.playerBoat.y + 64 - gameHeight;
+        this.startX = this.scene.playerBoat.x;
+        this.startY = this.scene.playerBoat.y;
+
+        this.createFinalObjective(this.startX + exitX, this.startY + exitY, 'bum');
+
+        this.zoomLevel = 1;
+        let xz = Math.abs(screenWidth  / (exitX + (2 * border)));
+        let yz = Math.abs(screenHeight / (exitY - (2 * border)));
+
+        if (xz < yz) {
+            console.log ("xz is zoomed out: " + xz);
+            this.zoomLevel = xz;
+        } else if (xz > yz) {
+            console.log ("yz is zoomed out: " + yz);
+            this.zoomLevel = yz;
+        } else {
+            console.log ("they are equal");
+        }
+
+
+
+
+        this.x = this.startX - border;
+        this.y = this.startY + exitY - border;
+
+        this.centerX = this.startX + exitX / 2;
+        this.centerY = this.startY + exitY / 2;
 
         this.camera = this.scene.cameras.main;
-
         this.createLevel();
     }
 
@@ -49,7 +73,7 @@ class BaseLevel extends Phaser.GameObjects.GameObject{
             i--;
         }
 
-        if(this.ExitPoint != null){this.ExitPoint.DestroySelf();}
+        //if(this.ExitPoint != null){this.ExitPoint.DestroySelf();}
     }
 
     createObjective(x, y, sfx_key){
@@ -58,7 +82,7 @@ class BaseLevel extends Phaser.GameObjects.GameObject{
     }
 
     createFinalObjective(x, y, sfx_key){
-        let finalobjectivepoint = new FinalObjectivePoint(this.scene, x + this.x, y + this.y, sfx_key);
+        let finalobjectivepoint = new FinalObjectivePoint(this.scene, x, y, sfx_key);
         this.ExitPoint = finalobjectivepoint;
     }
 

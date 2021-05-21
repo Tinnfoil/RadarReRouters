@@ -15,7 +15,7 @@ class Play extends Phaser.Scene{
 
     create() {
         this.cameras.main.setBackgroundColor('#000000')
-        this.grid = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'backgroundgrid').setOrigin(0, 0);
+        this.grid = this.add.tileSprite(-screenWidth, -screenHeight, screenWidth * 3, screenHeight * 3, 'backgroundgrid').setOrigin(0, 0);
         this.grid.setScrollFactor(0);
 
         // Set Keyboard controls
@@ -38,7 +38,7 @@ class Play extends Phaser.Scene{
         this.island.scale = .4;
 
         // Initialize the gameobject the player will use as the boat
-        this.playerBoat = new PlayerBoat(this, null, 64, gameHeight - 64);
+        this.playerBoat = new PlayerBoat(this, null, border, screenHeight - border);
 
         // Create level and initialize it
         this.levelNumber;
@@ -115,7 +115,7 @@ class Play extends Phaser.Scene{
         //Reset Player Position 
         this.boatPath.destroy(); this.boatPath = null;
         this.playerBoat.Destroy();
-        this.playerBoat = new PlayerBoat(this, null, this.level.x + 64, this.level.y + gameHeight - 64);
+        this.playerBoat = new PlayerBoat(this, null, this.level.startX, this.level.startY);
         this.graphics.clear();
         this.mouseFreeze = true;
         this.level.resetLevel();
@@ -128,8 +128,9 @@ class Play extends Phaser.Scene{
         }
  
         if (this.mouse.isDown && this.drawInterval <= 0 && this.mouseFreeze == false) {
-            let touchX = this.mouse.x + this.level.x;
-            let touchY = this.mouse.y + this.level.y;
+            let touchVec = this.cameras.main.getWorldPoint(this.mouse.x, this.mouse.y);
+            let touchX = touchVec.x;
+            let touchY = touchVec.y;
             if(this.boatPath == null){
 
                 this.boatPath = this.add.path(touchX, touchY);
@@ -175,13 +176,8 @@ class Play extends Phaser.Scene{
             this.level.checkCollisions(this.playerBoat);
         }
         this.level.updateSFX();
-        this.playerBoat.update(time, delta);
+        this.playerBoat.update(time, delta); 
 
-        //console.log (this.cameras.main.scrollX, this.cameras.main.scrollY);
-
-        // update tilesprite
-        this.grid.tilePositionX = this.cameras.main.scrollX;
-        this.grid.tilePositionY = this.cameras.main.scrollY;
     }
 
     SetLevel(levelnum = null){
@@ -192,7 +188,7 @@ class Play extends Phaser.Scene{
                 this.level = new Level1(this);
               break;
             case 2:
-                this.level = new Level2(this);
+                this.level = new Level2(this, gameWidth + 100, -gameWidth - 100);
               break;
             default:
                 this.levelNumber = 1;
@@ -208,11 +204,17 @@ class Play extends Phaser.Scene{
     levelTransition() {
         this.isCameraMove = true;
         this.lastLevel.stopLevel();
-        this.cameras.main.pan(this.level.x + gameWidth/2, this.level.y + gameHeight/2, 3000, 'Sine.easeInOut', false, this.transistionCallback);
+        this.cameras.main.pan(this.level.centerX, this.level.centerY, 3000, 'Sine.easeInOut', false, this.transistionCallback);
+        this.cameras.main.zoomTo(this.level.zoomLevel, 3000, 'Sine.easeInOut');
     }
     
     transistionCallback(cam = null, progress = 0) {
         this.lastLevel.updateSFX();
+        // update tilesprite
+        this.grid.tilePositionX = this.cameras.main.scrollX;
+        this.grid.tilePositionY = this.cameras.main.scrollY;
+        this.grid.tileScale = this.cameras.main.zoom;
+        //console.log (this.cameras.main.scrollX, this.cameras.main.scrollY);
         if (progress == 1) {
             console.log("transition complete");
             this.isCameraMove = false;

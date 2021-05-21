@@ -1,14 +1,14 @@
 class Level1 extends BaseLevel{
-    constructor(scene) {
-        super(scene); 
+    constructor(scene, exitX = gameWidth, exitY = -gameHeight) {
+        super(scene, exitX, exitY); 
     }
 
     createLevel(){
         console.log("Level 1 Creation");
-        this.createObjective(gameWidth/2, gameHeight/2, 'bum');
+        this.createObjective(screenWidth/2, screenHeight/2, 'bum');
         //this.createObjective(gameWidth/2 - 300, gameHeight/2 + 100, 'bum');
         //this.createObjective(gameWidth/2 + 200, gameHeight/2 - 200, 'bum');
-        this.createFinalObjective(gameWidth/2 + 300, gameHeight/2 - 300, 'bum');
+        //this.createFinalObjective(screenWidth/2 + 300, screenHeight/2 - 300, 'bum');
 
         this.createEnemy(
             null, 
