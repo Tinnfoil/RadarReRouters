@@ -41,9 +41,15 @@ class Play extends Phaser.Scene{
         // Initialize the gameobject the player will use as the boat
         this.playerBoat = new PlayerBoat(this, null, border, screenHeight - border);
 
+        // Create UI Scene
+        this.scene.launch('uiScene');
+        this.ui = this.scene.get('uiScene');
+        this.ui.events.on('followPath', this.FollowPath, this);
+        this.ui.events.on('resetLevel', this.ResetLevel, this);
+
         // Create level and initialize it
         this.levelNumber;
-        this.level = this.SetLevel();
+        this.level = this.SetLevel(1);
         this.level.startLevel();
 
         // For pausing updates while transitioning
@@ -69,10 +75,6 @@ class Play extends Phaser.Scene{
             add: true
         });
 
-        this.scene.launch('uiScene');
-        this.ui = this.scene.get('uiScene');
-        this.ui.events.on('followPath', this.FollowPath, this);
-        this.ui.events.on('resetLevel', this.ResetLevel, this);
     }
 
     CheckDraw(){
@@ -82,7 +84,7 @@ class Play extends Phaser.Scene{
     }
 
     FollowPath(){
-        if(this.boatPath == null || !this.ui.goButton.enabled){return;}
+        if(this.boatPath == null || !this.ui.goEnabled){return;}
         
         let x = this.boatPath.getStartPoint().x;
         let y = this.boatPath.getStartPoint().y;  
@@ -97,7 +99,7 @@ class Play extends Phaser.Scene{
             from: 0,            // points allow a path are values 0–1
             to: 1,
             delay: 0,
-            duration: (pathlength * 10) / 2,
+            duration: (pathlength * 15) / 2,
             ease: 'Power0',
             hold: 0,
             repeat: 0,
@@ -118,6 +120,8 @@ class Play extends Phaser.Scene{
         this.playerBoat = new PlayerBoat(this, null, this.level.startX, this.level.startY);
         this.graphics.clear();
         this.mouseFreeze = true;
+        this.ui.turnOffGoButton();
+        if(this.drawFinger != null){this.drawFinger.destroy();} 
         this.level.resetLevel();
     }
 
@@ -209,21 +213,24 @@ class Play extends Phaser.Scene{
                 this.level = new Level1(this);
         }
         //this.level.createLevel(); // create new level before transitoning
-        if (this.lastLevel != null) {
-            this.levelTransition();
-        }
+        this.levelTransition();
         return this.level;
     }
 
     levelTransition() {
+        this.ui.turnOffGoButton();
         this.isCameraMove = true;
-        this.lastLevel.stopLevel();
+        if(this.lastLevel != null){
+            this.lastLevel.stopLevel();
+        }
         this.cameras.main.pan(this.level.centerX, this.level.centerY, 3000, 'Sine.easeInOut', false, this.transistionCallback);
         this.cameras.main.zoomTo(this.level.zoomLevel, 3000, 'Sine.easeInOut');
     }
     
     transistionCallback(cam = null, progress = 0) {
-        this.lastLevel.updateSFX();
+        if(this.lastLevel != null){
+            this.lastLevel.updateSFX();
+        }
         // update tilesprite
         this.grid.tilePositionX = this.cameras.main.scrollX;
         this.grid.tilePositionY = this.cameras.main.scrollY;
@@ -232,9 +239,11 @@ class Play extends Phaser.Scene{
         if (progress == 1) {
             console.log("transition complete");
             this.isCameraMove = false;
-            this.lastLevel.clearLevel();
-            this.lastLevel = null;;
-            this.ResetLevel();
+            if(this.lastLevel != null){
+                this.lastLevel.clearLevel();
+                this.lastLevel = null;
+                this.ResetLevel();
+            }             
         }
     }  
 }

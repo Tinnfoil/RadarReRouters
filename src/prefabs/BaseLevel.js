@@ -124,7 +124,7 @@ class BaseLevel extends Phaser.GameObjects.GameObject{
                 worldPoints[i] += this.toWorldX(points[i]);
             }
         }
-        let enemy = new Enemy(this.scene, path, worldPoints, speed, delay, sprite, sfx_key);
+        let enemy = new Enemy(this.scene, path, worldPoints, speed / 1.5, delay, sprite, sfx_key);
         this.EnemyList.add(enemy);
     }
 
