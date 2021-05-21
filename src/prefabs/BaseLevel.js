@@ -146,15 +146,11 @@ class BaseLevel extends Phaser.GameObjects.GameObject{
             }
         }
 
-        /*
-        for (let i = 0; i < this.EnemyList.length; i++) {
-            if(Phaser.Math.Distance.BetweenPoints( playerBoat, this.EnemyList.getAt(i)) < playerBoat.colRad + this.EnemyList.getAt(i).colRad)
-            {
-                console.log("collided with enemy boat");
-                this.scene.ResetLevel();
-            }
+        // Now check for LZ for final objective
+        if(Math.sqrt(Math.pow(this.ExitPoint.y - mousey,2)+Math.pow(this.ExitPoint.x - mousex,2))<  this.scene.playerBoat.colRad + this.ExitPoint.colRad) 
+        {
+            this.ExitPoint.Hover();
         }
-        */
     }
 
     updateSFX() {

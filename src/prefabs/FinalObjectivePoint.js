@@ -3,7 +3,10 @@ class FinalObjectivePoint extends Phaser.GameObjects.Sprite {
         super(scene, positionX, positionY, 'exitpoint'); 
         scene.add.existing(this);               // add to existing scene, displayList, updateList
         
-        this.colRad = 20;
+        this.colRad = 35;
+
+        this.alpha = .5;
+        this.hovered = false;
 
         // objective 'pickup' sfx
         this.sfx = new SpatialSound(scene, this, sfx_key, 0.25, false, 100, 600);
@@ -11,6 +14,12 @@ class FinalObjectivePoint extends Phaser.GameObjects.Sprite {
 
     update(time, delta) {
         
+    }
+
+    Hover(){
+        this.alpha = 1;
+        this.scale = 1.1;
+        this.hovered = true;
     }
 
     Collect() {

@@ -29,6 +29,7 @@ class Play extends Phaser.Scene{
         this.lastX = 0;
         this.lastY = 0;
         this.mouseFreeze = true;
+        this.drawing = false;
 
         // Initialize the path the boat will follow
         this.boatPath = null;
@@ -137,11 +138,10 @@ class Play extends Phaser.Scene{
                 this.lastX = touchX;
                 this.lastY = touchY;
                 this.lastlastX = this.lastX - 1;
-                this.lastlastY = this.lastY + 1;
-                
-                this.drawFinger.destroy();
+                this.lastlastY = this.lastY + 1;                    
             }
-            else if(Math.abs(this.lastX - touchX) > 12 || Math.abs(this.lastY - touchY) > 12){
+            else if((this.drawing == true && (Math.abs(this.lastX - touchX) > 12 || Math.abs(this.lastY - touchY) > 12)) ||
+            (this.drawing == false && (Math.abs(this.lastX - touchX) < 40 && Math.abs(this.lastY - touchY) < 40))){
                 console.log("Drawing");
                 this.graphics.clear()
 
@@ -164,12 +164,21 @@ class Play extends Phaser.Scene{
                 this.lastX = touchX;
                 this.lastY = touchY;
 
-                this.level.checkHover(touchX, touchY);
-                //console.log(this.drawInterval);
+                this.level.checkHover(touchX, touchY);     
+                if(this.drawFinger != null){this.drawFinger.destroy();}     
+                this.drawing = true;
             }
+
         }
         else{
             this.drawInterval -= delta;
+        }
+
+        if(this.boatPath != null && this.mouse.isDown == false && this.drawing == true){
+            if(this.level.ExitPoint.hovered == false){
+                this.drawFinger = this.add.sprite(this.boatPath.getEndPoint().x, this.boatPath.getEndPoint().y, 'drawfinger').setOrigin(0, 0);
+            }
+            this.drawing = false;
         }
 
         if (!this.isCameraMove) {
