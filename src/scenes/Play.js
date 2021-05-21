@@ -168,6 +168,8 @@ class Play extends Phaser.Scene{
                 this.lastlastY = this.lastY;
                 this.lastX = touchX;
                 this.lastY = touchY;
+
+                this.level.checkHover(touchX, touchY);
                 //console.log(this.drawInterval);
             }
         }

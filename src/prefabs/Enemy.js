@@ -32,17 +32,27 @@ class Enemy extends Phaser.GameObjects.PathFollower {
             rotateToPath: true
         });
 
+        this.circlegraphics = scene.add.graphics({ lineStyle: { width: 2, color: 0xff0000, alpha: .5 }, fillStyle: { color: 0xff0000 }});
+        this.circle = new Phaser.Geom.Circle(this.x, this.y, this.colRad );
+
         this.sfx = new SpatialSound(scene, this, sfx_key, 0.33, true, 150, 600);
         this.sfx.play();
     }
 
     update() {
         this.sfx.update();
+        if(config.debug == true){
+            this.circlegraphics.clear();
+            this.circle.x = this.x; this.circle.y = this.y;
+            this.circlegraphics.strokeCircleShape(this.circle);
+        }
+        //this.graphics.drawCircle(this.x, this.y, this.colRad);
     }
 
     DestroySelf(){
         this.sfx.stop();
         this.graphics.clear();
+        this.circlegraphics.clear();
         this.destroy();
     }
 }

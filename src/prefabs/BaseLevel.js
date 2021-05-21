@@ -104,6 +104,27 @@ class BaseLevel extends Phaser.GameObjects.GameObject{
         }
     }
 
+    checkHover(mousex, mousey){
+        for (let i = 0; i < this.ObjectiveList.length; i++) {
+            let obj = this.ObjectiveList.getAt(i);
+            if(Math.sqrt(Math.pow(obj.y - mousey,2)+Math.pow(obj.x - mousex,2)) < (this.ObjectiveList.getAt(i).colRad + this.scene.playerBoat.colRad)) 
+            {
+                console.log("Hovered objective");
+                this.ObjectiveList.getAt(i).Hover();
+            }
+        }
+
+        /*
+        for (let i = 0; i < this.EnemyList.length; i++) {
+            if(Phaser.Math.Distance.BetweenPoints( playerBoat, this.EnemyList.getAt(i)) < playerBoat.colRad + this.EnemyList.getAt(i).colRad)
+            {
+                console.log("collided with enemy boat");
+                this.scene.ResetLevel();
+            }
+        }
+        */
+    }
+
     updateSFX() {
         for (let i = 0; i < this.EnemyList.length; i++) {
             this.EnemyList.getAt(i).update();

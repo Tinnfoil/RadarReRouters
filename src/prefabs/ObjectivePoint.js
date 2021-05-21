@@ -5,12 +5,21 @@ class ObjectivePoint extends Phaser.GameObjects.Sprite {
         
         this.colRad = 20;
 
+        this.alpha = .5;
+        this.hovered = false;
+
         // objective 'pickup' sfx
         this.sfx = new SpatialSound(scene, this, sfx_key, 0.25, false, 100, 600);
     }
 
     update(time, delta) {
         
+    }
+
+    Hover(){
+        this.alpha = 1;
+        this.scale = 1.1;
+        this.hovered = true;
     }
 
     Collect() {
