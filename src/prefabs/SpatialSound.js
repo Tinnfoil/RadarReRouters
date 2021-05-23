@@ -1,5 +1,5 @@
 class SpatialSound extends Phaser.GameObjects.GameObject{
-    constructor(scene, parent, key, volume, loop, min_distance, max_distance) {
+    constructor(scene, parent, key, volume, loop) {
         super(scene, parent.x, parent.y);
         this.scene = scene;
         this.parent = parent;
@@ -7,24 +7,25 @@ class SpatialSound extends Phaser.GameObjects.GameObject{
         this.l = this.scene.sound.add(key + '_l', {volume: volume, loop: loop});
         this.r = this.scene.sound.add(key + '_r', {volume: volume, loop: loop});
 
-        this.min_dist = min_distance;
-        this.max_dist = max_distance;
         this.base_volume = volume;
     }
 
     update() {
         // get coordinates of main camera, to act as our listener
-        let cam_x = this.scene.cameras.main.scrollX + gameWidth/2;
-        let cam_y = this.scene.cameras.main.scrollY + gameHeight/2;
+        let cam_x = this.scene.cameras.main.scrollX + centerX;
+        let cam_y = this.scene.cameras.main.scrollY + centerY;
+
+        let max_dist = this.scene.cameras.main.displayWidth / 2 + border;
+        let min_dist = max_dist / 3;
 
         // get distance between source and main camera
         let dist = Phaser.Math.Distance.Between(cam_x, cam_y, this.parent.x, this.parent.y);
         let x_dist = cam_x - this.parent.x;
 
         // calculate position between 0 and 1 of the source and max/min distances.
-        let dist_ratio = (this.max_dist - dist) / (this.max_dist - this.min_dist);
+        let dist_ratio = (max_dist - dist) / (max_dist - min_dist);
         // calculate position between -1 and 1 of the panning x position
-        let pan_ratio = x_dist / this.max_dist;
+        let pan_ratio = x_dist / max_dist;
 
         // keep within bounds of 0 and 1
         if (dist_ratio > 1) {dist_ratio = 1}

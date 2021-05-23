@@ -28,7 +28,7 @@ class Enemy extends Phaser.GameObjects.PathFollower {
         this.circlegraphics = scene.add.graphics({ lineStyle: { width: 2, color: 0xff0000, alpha: .5 }, fillStyle: { color: 0xff0000 }});
         this.circle = new Phaser.Geom.Circle(this.x, this.y, this.colRad );
 
-        this.sfx = new SpatialSound(scene, this, sfx_key, 0.33, true, 150, 600);
+        this.sfx = new SpatialSound(scene, this, sfx_key, 0.33, true);
         
     }
 
