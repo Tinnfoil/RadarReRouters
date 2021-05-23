@@ -4,19 +4,6 @@ class Menu extends Phaser.Scene{
         super("menuScene");
     }
 
-    preload(){
-        this.load.image('titlescreen', "./assets/Title_Screen.png");
-        this.load.image('startbutton', "./assets/Start_Button.png");
-        this.load.audio('a_l', './assets/audio/drone_a_l.wav');
-        this.load.audio('a_r', './assets/audio/drone_a_r.wav');
-        this.load.audio('d_l', './assets/audio/drone_d_l.wav');
-        this.load.audio('d_r', './assets/audio/drone_d_r.wav');
-        this.load.audio('blip_l', './assets/audio/blips_l.wav');
-        this.load.audio('blip_r', './assets/audio/blips_r.wav');
-        this.load.audio('bum_l', './assets/audio/bum_l.wav');
-        this.load.audio('bum_r', './assets/audio/bum_r.wav');
-    }
-
     create() {
         this.titleScreen = this.add.sprite(0, 0, 'titlescreen').setOrigin(0, 0);
 

@@ -3,10 +3,6 @@ class UI extends Phaser.Scene {
         super("uiScene");
         Phaser.Scene.call(this, {key: 'uiScene'});
     }
-    preload() {
-        this.load.image("gobutton", "./assets/TestGoButton.png");
-        this.load.image("restart",  "./assets/Restart.png");
-    }
 
     create() {
         // Draw Go button as fixed UI element

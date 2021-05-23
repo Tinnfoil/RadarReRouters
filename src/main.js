@@ -28,7 +28,7 @@ let config = {
             }
         }
     },
-    scene: [Menu, Play, UI],
+    scene: [Load, Menu, Play, UI],
     debug: true
 }
 

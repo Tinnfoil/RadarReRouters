@@ -3,16 +3,6 @@ class Play extends Phaser.Scene{
         super("playScene");
     }
 
-    preload(){
-        this.load.image("playerboat", "./assets/Ship_01.png");
-        this.load.image("drawfinger", "./assets/TestFinger.png");
-        this.load.image("island", "./assets/Island.png");
-        this.load.image("enemyboat", "./assets/Ship_02.png");
-        this.load.image("backgroundgrid", "./assets/Grid.png");
-        this.load.image("objective", "./assets/TestObjective.png");
-        this.load.image("exitpoint", "./assets/exit.png");
-    }
-
     create() {
         this.cameras.main.setBackgroundColor('#000000')
         this.grid = this.add.tileSprite(-screenWidth, -screenHeight, screenWidth * 3, screenHeight * 3, 'backgroundgrid').setOrigin(0, 0);
