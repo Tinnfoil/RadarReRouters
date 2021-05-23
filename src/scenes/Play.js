@@ -25,8 +25,8 @@ class Play extends Phaser.Scene{
         this.boatPath = null;
 
         // Initialize Island
-        this.island = this.add.sprite(0, 0, 'island').setOrigin(0, 0);
-        this.island.scale = .4;
+        //this.island = this.add.sprite(0, 0, 'island').setOrigin(0, 0);
+        //this.island.scale = .4;
 
         // Initialize the gameobject the player will use as the boat
         this.playerBoat = new PlayerBoat(this, null, border, screenHeight - border);
@@ -193,7 +193,7 @@ class Play extends Phaser.Scene{
                 this.level = new Level1(this);
                 break;
             case 2:
-                this.level = new Level1(this);
+                this.level = new Level2(this);
                 break;
             case 3:
                 this.level = new Level3(this);

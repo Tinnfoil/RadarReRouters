@@ -6,6 +6,7 @@ class BaseLevel extends Phaser.GameObjects.GameObject{
         this.objectiveHoverCount = 0;
         this.EnemyList = new Phaser.Structs.List(this.scene);
         this.ExitPoint = null;
+        this.LandList = new Phaser.Structs.List(this.scene);
         this.baseTime = time;
 
         // get the player's start point from their ending pos
@@ -102,6 +103,12 @@ class BaseLevel extends Phaser.GameObjects.GameObject{
         if(this.ExitPoint != null){
             this.ExitPoint.UnHover();
         }
+
+        for (let i = 0; i < this.LandList.length; i++) {
+            this.LandList.getAt(i).destroy();
+            this.LandList.removeAt(i);
+            i--;
+        }
     }
 
     createObjective(xr, yr, sfx_key){
@@ -127,6 +134,12 @@ class BaseLevel extends Phaser.GameObjects.GameObject{
         }
         let enemy = new Enemy(this.scene, path, worldPoints, this.baseTime * speed, startAt, sprite, sfx_key);
         this.EnemyList.add(enemy);
+    }
+
+    createLand (xr, yr, type) {
+        console.log("creating land")
+        let land = new LandMass(this.scene, this.toWorldX(xr), this.toWorldY(yr), type);
+        this.LandList.add(land);
     }
 
     checkCollisions(playerBoat){

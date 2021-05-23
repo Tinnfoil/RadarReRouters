@@ -1,23 +1,25 @@
 class Level2 extends BaseLevel{
     constructor(scene) {
-        super(scene, 1000, gameWidth, -gameHeight); 
+        super(scene, 10000, gameWidth + 300, -200); 
     }
 
     createLevel(){
         console.log("Level 2 Creation");
-        this.createObjective(screenWidth/2 - 50, screenHeight/2, 'bum');
-        this.createObjective(screenWidth/2 - 350, screenHeight/2 - 150, 'bum');
-        this.createObjective(screenWidth/2 + 200, screenHeight/2 + 150, 'bum');
+        this.createObjective(0.5, 0.5, 'bum');
+        this.createObjective(0.6, 0.4, 'bum');
+        this.createObjective(0.4, 0.6, 'bum');
         //this.createFinalObjective(screenWidth/2 + 300, screenHeight/2 - 300, 'bum');
         
         this.createEnemy(
             null, 
-            [1000, 300,
-            -50, 400], 
-            3,
+            [1, 0.6,
+            0, 0.4], 
+            1,
             0, 
             'enemyboat',
-            'a'
+            'd'
         );
+
+        this.createLand(0.7, 0.7, 0);
     }
 }
