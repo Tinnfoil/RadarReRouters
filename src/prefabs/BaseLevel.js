@@ -1,11 +1,12 @@
 class BaseLevel extends Phaser.GameObjects.GameObject{
-    constructor(scene, exitX = gameWidth, exitY = -gameHeight) {
+    constructor(scene, time = 10000, exitX = gameWidth, exitY = -gameHeight) {
         super(scene); 
         this.scene = scene;
         this.ObjectiveList = new Phaser.Structs.List(this.scene);
         this.objectiveHoverCount = 0;
         this.EnemyList = new Phaser.Structs.List(this.scene);
         this.ExitPoint = null;
+        this.baseTime = time;
 
         // get the player's start point from their ending pos
         this.startX = this.scene.playerBoat.x;
@@ -114,7 +115,7 @@ class BaseLevel extends Phaser.GameObjects.GameObject{
         this.ExitPoint = finalobjectivepoint;
     }
 
-    createEnemy(path, points, speed, delay, sprite, sfx_key){
+    createEnemy(path, points, speed, startAt, sprite, sfx_key){
         // Compute world path from local path coods
         let worldPoints = points;
         for (let i = 0; i < points.length; i++) {
@@ -124,7 +125,7 @@ class BaseLevel extends Phaser.GameObjects.GameObject{
                 worldPoints[i] += this.toWorldX(points[i]);
             }
         }
-        let enemy = new Enemy(this.scene, path, worldPoints, speed / 1.5, delay, sprite, sfx_key);
+        let enemy = new Enemy(this.scene, path, worldPoints, this.baseTime * speed, startAt, sprite, sfx_key);
         this.EnemyList.add(enemy);
     }
 

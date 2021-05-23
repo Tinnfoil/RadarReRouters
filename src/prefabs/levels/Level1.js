@@ -1,6 +1,7 @@
 class Level1 extends BaseLevel{
-    constructor(scene, exitX = gameWidth, exitY = -gameHeight) {
-        super(scene, exitX, exitY); 
+    constructor(scene) {
+        // scene, time, exit offset x, exit offset y
+        super(scene, 10000, gameWidth, -gameHeight); 
     }
 
     createLevel(){
@@ -16,8 +17,8 @@ class Level1 extends BaseLevel{
             0.6, 0.7,
             0.5, 0.3,
             0, 0.6], 
-            1.5,
-            0, 
+            1,
+            0.5, 
             'enemyboat',
             'a'
         );

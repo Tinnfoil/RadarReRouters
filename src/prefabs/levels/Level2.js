@@ -1,6 +1,6 @@
 class Level2 extends BaseLevel{
-    constructor(scene, exitX = gameWidth, exitY = -gameHeight) {
-        super(scene, exitX, exitY); 
+    constructor(scene) {
+        super(scene, 1000, gameWidth, -gameHeight); 
     }
 
     createLevel(){

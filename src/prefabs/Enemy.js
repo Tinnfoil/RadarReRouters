@@ -1,11 +1,11 @@
 class Enemy extends Phaser.GameObjects.PathFollower {
-    constructor(scene, path, points, speed, delay, sprite, sfx_key) {
+    constructor(scene, path, points, time, startAt, sprite, sfx_key) {
         super(scene, path, points[0], points[1], sprite); 
         scene.add.existing(this);
 
-        this.scale = 0.15;
+        this.scale = 0.175;
         // size of circular radius to check collisions
-        this.colRad = 20;
+        this.colRad = 40;
         this.flipX = true;
 
         if (points.length > 4) {
@@ -15,10 +15,22 @@ class Enemy extends Phaser.GameObjects.PathFollower {
         } else {
             this.path = new Phaser.Curves.Line(points);
         }
+        this.time = time;
 
-        this.delay = delay;
-        this.speed = speed;
-        this.visible = false;
+        // allow to either spawn in the middle of the path, or before
+        if(startAt < 0) {
+            this.delay = -(startAt * this.time);
+            this.startAt = 0;
+            this.visible = false;
+        } else {
+            this.delay = 0;
+            this.startAt = startAt;
+            this.visible = true;
+            // set the position based on start point during camera move before reset
+            let startAtPoint = this.path.getPoint(this.startAt);
+            this.x = startAtPoint.x;
+            this.y = startAtPoint.y;
+        }
 
         // draw path for debug purposes
         this.graphics = scene.add.graphics();
@@ -29,27 +41,28 @@ class Enemy extends Phaser.GameObjects.PathFollower {
         this.circle = new Phaser.Geom.Circle(this.x, this.y, this.colRad );
 
         this.sfx = new SpatialSound(scene, this, sfx_key, 0.33, true);
-        
+        this.sfx.play();
     }
 
     start() {
         this.visible = true;
         let pathlength = this.path.getLength();
 
-        // start along path
+        // reset the path origin
+        let startPoint = this.path.getStartPoint();
+        this.x = startPoint.x;
+        this.y = startPoint.y;
+
         this.startFollow({
             from: 0,            // points allow a path are values 0–1
             to: 1,
             delay: this.delay,       // give ships a offset, not totally in sync
-            duration: (pathlength / this.speed ) * 10,
+            duration: this.time,
             ease: 'Power0',
             hold: 0,
             repeat: -1,
-            yoyo: false,
-            //rotateToPath: true
-        });
-
-        this.sfx.play();
+            yoyo: false,  
+        }, this.startAt);
     }
 
 

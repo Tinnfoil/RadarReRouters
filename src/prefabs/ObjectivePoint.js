@@ -3,6 +3,8 @@ class ObjectivePoint extends Phaser.GameObjects.Sprite {
         super(scene, positionX, positionY, 'objective'); 
         scene.add.existing(this);               // add to existing scene, displayList, updateList
         
+        this.setOrigin(0.5);
+
         this.colRad = 20;
 
         this.alpha = .5;
