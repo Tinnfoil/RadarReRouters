@@ -6,7 +6,7 @@ class Level1 extends BaseLevel{
 
     createLevel(){
         console.log("Level 1 Creation");
-        this.createObjective(0.5, 0.5, 'bum');
+        //this.createObjective(0.5, 0.5, 'bum');
         //this.createObjective(gameWidth/2 - 300, gameHeight/2 + 100, 'bum');
         //this.createObjective(gameWidth/2 + 200, gameHeight/2 - 200, 'bum');
         //this.createFinalObjective(screenWidth/2 + 300, screenHeight/2 - 300, 'bum');
