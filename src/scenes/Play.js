@@ -133,33 +133,38 @@ class Play extends Phaser.Scene{
                 this.lastlastX = this.lastX - 1;
                 this.lastlastY = this.lastY + 1;                    
             }
-            else if((this.drawing == true && (Math.abs(this.lastX - touchX) > 12 || Math.abs(this.lastY - touchY) > 12)) ||
+            else if((this.drawing == true && (Math.abs(this.lastX - touchX) > 8 || Math.abs(this.lastY - touchY) > 8)) ||
             (this.drawing == false && (Math.abs(this.lastX - touchX) < 40 && Math.abs(this.lastY - touchY) < 40))){
-                console.log("Drawing");
-                this.graphics.clear()
-
-                this.drawInterval = Math.min(Math.max(Math.abs(this.lastX - touchX) +  Math.abs(this.lastY - touchY) - 16, 4), 17)
-
-                let points = [
-                    this.lastX, this.lastY,     // start point
-                    (this.drawInterval/17) * ((this.lastX - this.lastlastX)/4 + (touchX - this.lastX)/5) + this.lastX, 
-                    (this.drawInterval/17) * ((this.lastY - this.lastlastY)/4 + (touchY - this.lastY)/5) + this.lastY,     // control point
-                    touchX, touchY      // end point
-                ];
-                //console.log(touchX - this.lastX);
-                let curve = new Phaser.Curves.QuadraticBezier(points);
-                //this.boatPath.lineTo(touchX, touchY);
-                this.boatPath.add(curve);
-                this.boatPath.draw(this.graphics);
-
-                this.lastlastX = this.lastX;
-                this.lastlastY = this.lastY;
-                this.lastX = touchX;
-                this.lastY = touchY;
-
-                this.level.checkHover(touchX, touchY);     
-                if(this.drawFinger != null){this.drawFinger.destroy();}     
-                this.drawing = true;
+                if(this.level.checkLandHover(touchX, touchY)){
+                    console.log("Drawing");
+                    this.graphics.clear()
+    
+                    this.drawInterval = Math.min(Math.max(Math.abs(this.lastX - touchX) +  Math.abs(this.lastY - touchY) - 16, 2), 8)
+    
+                    let points = [
+                        this.lastX, this.lastY,     // start point
+                        (this.drawInterval/17) * ((this.lastX - this.lastlastX)/4 + (touchX - this.lastX)/5) + this.lastX, 
+                        (this.drawInterval/17) * ((this.lastY - this.lastlastY)/4 + (touchY - this.lastY)/5) + this.lastY,     // control point
+                        touchX, touchY      // end point
+                    ];
+                    //console.log(touchX - this.lastX);
+                    let curve = new Phaser.Curves.QuadraticBezier(points);
+                    //this.boatPath.lineTo(touchX, touchY);
+                    this.boatPath.add(curve);
+                    this.boatPath.draw(this.graphics);
+    
+                    this.lastlastX = this.lastX;
+                    this.lastlastY = this.lastY;
+                    this.lastX = touchX;
+                    this.lastY = touchY;
+    
+                    this.level.checkHover(touchX, touchY);     
+                    if(this.drawFinger != null){this.drawFinger.destroy();}     
+                    this.drawing = true;
+                }
+                else{   // Prompt the player they cant draw near land
+                    this.mouse.isDown = false
+                }
             }
 
         }
