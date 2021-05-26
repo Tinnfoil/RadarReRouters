@@ -30,6 +30,7 @@ class Play extends Phaser.Scene{
 
         // Initialize the gameobject the player will use as the boat
         this.playerBoat = new PlayerBoat(this, null, border, screenHeight - border);
+        this.trailGhost = null; this.lastPointx = 0; this.lastPointy = 0;
 
         // Create UI Scene
         this.scene.launch('uiScene');
@@ -75,6 +76,10 @@ class Play extends Phaser.Scene{
 
     FollowPath(){
         if(this.boatPath == null || !this.ui.goEnabled){return;}
+
+        if(this.trailGhost != null){
+            this.trailGhost.Destroy(); this.trailGhost = null;
+        }
         
         let x = this.boatPath.getStartPoint().x;
         let y = this.boatPath.getStartPoint().y;  
@@ -107,6 +112,7 @@ class Play extends Phaser.Scene{
         //Reset Player Position 
         this.boatPath.destroy(); this.boatPath = null;
         this.playerBoat.Destroy();
+        this.trailGhost.Destroy(); this.trailGhost = null;
         this.playerBoat = new PlayerBoat(this, null, this.level.startX, this.level.startY);
         this.graphics.clear();
         this.mouseFreeze = true;
@@ -131,7 +137,8 @@ class Play extends Phaser.Scene{
                 this.lastX = touchX;
                 this.lastY = touchY;
                 this.lastlastX = this.lastX - 1;
-                this.lastlastY = this.lastY + 1;                    
+                this.lastlastY = this.lastY + 1; 
+                this.lastPointx = this.boatPath.getStartPoint().x; this.lastPointy = this.boatPath.getStartPoint().y; this.lastPointIndex = 0;
             }
             else if((this.drawing == true && (Math.abs(this.lastX - touchX) > 8 || Math.abs(this.lastY - touchY) > 8)) ||
             (this.drawing == false && (Math.abs(this.lastX - touchX) < 40 && Math.abs(this.lastY - touchY) < 40))){
@@ -160,6 +167,9 @@ class Play extends Phaser.Scene{
     
                     this.level.checkHover(touchX, touchY);     
                     if(this.drawFinger != null){this.drawFinger.destroy();}     
+
+                    if(this.trailGhost != null){this.trailGhost.PauseFollow()}
+
                     this.drawing = true;
                 }
                 else{   // Prompt the player they cant draw near land
@@ -175,9 +185,16 @@ class Play extends Phaser.Scene{
         if(this.boatPath != null && this.mouse.isDown == false && this.drawing == true){
             if(this.level.ExitPoint.hovered == false){
                 this.drawFinger = this.add.sprite(this.boatPath.getEndPoint().x, this.boatPath.getEndPoint().y, 'drawfinger').setOrigin(0, 0);
+                if(this.trailGhost == null) {
+                    this.createTrailGhost(this.boatPath, 0);
+                }
             }
             else{
                 this.ui.turnOnGoButton();
+            }
+
+            if(this.trailGhost != null){
+                this.trailGhost.Follow(this.lastPointx, this.lastPointy , 0);
             }
             this.drawing = false;
         }
@@ -210,6 +227,10 @@ class Play extends Phaser.Scene{
         //this.level.createLevel(); // create new level before transitoning
         this.levelTransition();
         return this.level;
+    }
+
+    createTrailGhost(path, interpolation){
+        this.trailGhost = new TrailGhost(this, path, path.getStartPoint().x, path.getStartPoint().y, 'playerboat', interpolation);   
     }
 
     levelTransition() {
