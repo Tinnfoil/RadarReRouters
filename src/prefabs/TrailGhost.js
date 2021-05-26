@@ -22,7 +22,6 @@ class TrailGhost extends Phaser.GameObjects.PathFollower {
         this.setActive(true);
         this.resumeFollow();
         this.following = true;
-        console.log("HIII");
         this.x = x;
         this.y = y;
         this.setPath(this.savedPath);
