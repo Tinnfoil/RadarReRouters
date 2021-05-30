@@ -112,7 +112,7 @@ class Play extends Phaser.Scene{
         //Reset Player Position 
         this.boatPath.destroy(); this.boatPath = null;
         this.playerBoat.Destroy();
-        this.trailGhost.Destroy(); this.trailGhost = null;
+        if(this.trailGhost != null){this.trailGhost.Destroy(); this.trailGhost = null;}
         this.playerBoat = new PlayerBoat(this, null, this.level.startX, this.level.startY);
         this.graphics.clear();
         this.mouseFreeze = true;
