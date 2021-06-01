@@ -5,7 +5,7 @@ class Enemy extends Phaser.GameObjects.PathFollower {
 
         this.scale = 0.175;
         // size of circular radius to check collisions
-        this.colRad = 40;
+        this.colRad = 30;
         this.flipX = true;
 
         if (points.length > 4) {

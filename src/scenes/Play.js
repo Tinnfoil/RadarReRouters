@@ -220,6 +220,15 @@ class Play extends Phaser.Scene{
             case 3:
                 this.level = new Level3(this);
                 break;
+            case 4:
+                this.level = new Level4(this);
+                break;
+            case 5:
+                this.level = new Level5(this);
+                break;
+            case 6:
+                this.level = new Level6(this);
+                break;
             default:
                 this.levelNumber = 1;
                 this.level = new Level1(this);
