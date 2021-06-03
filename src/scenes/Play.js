@@ -55,6 +55,7 @@ class Play extends Phaser.Scene{
 
         // Draw indicator for drawing
         this.drawFinger = this.add.sprite(105, game.config.height - 64, 'drawfinger').setOrigin(0, 0);
+        this.fingerx = this.drawFinger.x; this.fingery = this.drawFinger.y;
 
         // Set up graphics for the boat path line
         this.graphics = this.add.graphics({
@@ -192,6 +193,7 @@ class Play extends Phaser.Scene{
         if(this.boatPath != null && this.mouse.isDown == false && this.drawing == true){
             if(this.level.ExitPoint.hovered == false){
                 this.drawFinger = this.add.sprite(this.boatPath.getEndPoint().x, this.boatPath.getEndPoint().y, 'drawfinger').setOrigin(0, 0);
+                this.fingerx = this.drawFinger.x; this.fingery = this.drawFinger.y;
                 if(this.trailGhost == null) {
                     this.createTrailGhost(this.boatPath, 0);
                 }
@@ -209,6 +211,16 @@ class Play extends Phaser.Scene{
         if (!this.isCameraMove) {
             this.level.checkCollisions(this.playerBoat);
         }
+
+        if(this.drawFinger != null && this.levelNumber == 1 && this.boatPath == null){
+            this.drawFinger.x = this.fingerx + (Math.sin(time/500) * 20);
+            this.drawFinger.y = this.fingery - (Math.sin(time/500) * (15 + (5 * Math.sin(time/500))));
+        }
+        else{
+            this.drawFinger.x = this.fingerx + (Math.sin(time/400) * 3);
+            this.drawFinger.y = this.fingery + (Math.sin(time/400) * 3);
+        }
+
         this.level.updateSFX();
         this.playerBoat.update(time, delta); 
 
