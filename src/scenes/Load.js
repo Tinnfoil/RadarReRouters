@@ -37,14 +37,21 @@ class Load extends Phaser.Scene {
         this.load.image('returnbutton',         "Return_Button.png");
 
         // Load audio:
-        this.load.audio('a_l', 'audio/drone_a_l.wav');
-        this.load.audio('a_r', 'audio/drone_a_r.wav');
-        this.load.audio('d_l', 'audio/drone_d_l.wav');
-        this.load.audio('d_r', 'audio/drone_d_r.wav');
-        this.load.audio('blip_l', 'audio/blips_l.wav');
-        this.load.audio('blip_r', 'audio/blips_r.wav');
-        this.load.audio('bum_l',  'audio/bum_l.wav');
-        this.load.audio('bum_r',  'audio/bum_r.wav');
+        this.load.path = './assets/audio/';
+
+        this.load.audio('a_l', 'drone_a_l.wav');
+        this.load.audio('a_r', 'drone_a_r.wav');
+        this.load.audio('d_l', 'drone_d_l.wav');
+        this.load.audio('d_r', 'drone_d_r.wav');
+        this.load.audio('blip_l', 'blips_l.wav');
+        this.load.audio('blip_r', 'blips_r.wav');
+        this.load.audio('bum_l',  'bum_l.wav');
+        this.load.audio('bum_r',  'bum_r.wav');
+
+        this.load.audio('hat', 'hi-hat.mp3');
+        this.load.audio('kick', 'kick.mp3');
+        this.load.audio('snare', 'snare.mp3');
+        this.load.audio('cym', 'cym.mp3');
     }
 
     create() {

@@ -48,5 +48,7 @@ let gameHeight   = screenHeight - (2 * border);
 
 let screenRatio = screenWidth/screenHeight;
 
+let transitionTime = 3000;
+
 // Set Keyboard keys
 let keySPACE;

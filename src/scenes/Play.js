@@ -44,6 +44,8 @@ class Play extends Phaser.Scene{
             this.scene.setVisible(true, "uiScene");
         }
 
+        this.music = new Music (this, 
+            ['hat', 'kick', 'snare', 'cym'], 0.33)
 
         // Create level and initialize it
         this.levelNumber;
@@ -252,6 +254,7 @@ class Play extends Phaser.Scene{
                 this.playerBoat.Destroy();
                 this.level.clearLevel();
                 this.scene.setVisible(false, "uiScene");
+                this.music.stopPlayback();
                 this.scene.start('winScene');
                 //this.levelNumber = 1;
                 //this.level = new Level1(this);
@@ -272,14 +275,16 @@ class Play extends Phaser.Scene{
         if(this.lastLevel != null){
             this.lastLevel.stopLevel();
         }
-        this.cameras.main.pan(this.level.centerX, this.level.centerY, 3000, 'Sine.easeInOut', false, this.transistionCallback);
-        this.cameras.main.zoomTo(this.level.zoomLevel, 3000, 'Sine.easeInOut');
+        this.music.addLayer();
+        this.cameras.main.pan(this.level.centerX, this.level.centerY, transitionTime, 'Sine.easeInOut', false, this.transistionCallback);
+        this.cameras.main.zoomTo(this.level.zoomLevel, transitionTime, 'Sine.easeInOut');
     }
     
     transistionCallback(cam = null, progress = 0) {
         if(this.lastLevel != null){
             this.lastLevel.updateSFX();
         }
+        this.music.fadeInLayer(progress);
         // update tilesprite
         this.grid.tilePositionX = this.cameras.main.scrollX;
         this.grid.tilePositionY = this.cameras.main.scrollY;
