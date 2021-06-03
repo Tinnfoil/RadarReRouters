@@ -21,7 +21,7 @@ class LandMass extends Phaser.GameObjects.Sprite {
 
         this.colliders = [];
         //console.log(this.width, this.height);
-        this.circlegraphics = scene.add.graphics({ lineStyle: { width: 2, color: 0x0000ff, alpha: .5 }, fillStyle: { color: 0xff0000 }});
+        this.circlegraphics = scene.add.graphics({ lineStyle: { width: 2, color: 0x0000ff, alpha: .2 }, fillStyle: { color: 0xff0000 }});
         this.createColliders(colBlueprint);
     }
 
