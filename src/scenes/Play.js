@@ -45,7 +45,7 @@ class Play extends Phaser.Scene{
         }
 
         this.music = new Music (this, 
-            ['hat', 'kick', 'snare', 'cym'], 0.2)
+            ['hat', 'kick', 'snare', 'cym'], 0.2);
 
         // Create level and initialize it
         this.levelNumber;
@@ -224,8 +224,11 @@ class Play extends Phaser.Scene{
         }
 
         this.level.updateSFX();
-        this.playerBoat.update(time, delta); 
-
+        this.playerBoat.update(time, delta);
+        
+         
+        //this.cameras.main.followOffset.x = 200;
+        // 70 * Math.cos(time/250));
     }
 
     SetLevel(levelnum = null){
