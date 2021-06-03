@@ -213,8 +213,8 @@ class Play extends Phaser.Scene{
         }
 
         if(this.drawFinger != null && this.levelNumber == 1 && this.boatPath == null){
-            this.drawFinger.x = this.fingerx + (Math.sin(time/500) * 20);
-            this.drawFinger.y = this.fingery - (Math.sin(time/500) * (15 + (5 * Math.sin(time/500))));
+            this.drawFinger.x = this.fingerx + (Math.sin(time/500) * 40);
+            this.drawFinger.y = this.fingery - 30 - (Math.sin(time/500) * (35 + (5 * Math.sin(time/500))));
         }
         else{
             this.drawFinger.x = this.fingerx + (Math.sin(time/400) * 3);
