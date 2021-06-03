@@ -45,7 +45,7 @@ class Play extends Phaser.Scene{
         }
 
         this.music = new Music (this, 
-            ['hat', 'kick', 'snare', 'cym'], 0.33)
+            ['hat', 'kick', 'snare', 'cym'], 0.2)
 
         // Create level and initialize it
         this.levelNumber;
@@ -94,7 +94,7 @@ class Play extends Phaser.Scene{
         let x = this.boatPath.getStartPoint().x;
         let y = this.boatPath.getStartPoint().y;  
         
-       // this.playerBoat = this.add.follower(this.boatPath, x, y, 'playerboat').setScale(0.5);
+        // this.playerBoat = this.add.follower(this.boatPath, x, y, 'playerboat').setScale(0.5);
         this.playerBoat.path = this.boatPath;
         //this.playerBoat.path = this.boatCurve;
         this.playerBoat.x = x; this.playerBoat.y = y;
@@ -114,7 +114,7 @@ class Play extends Phaser.Scene{
         this.mouseFreeze = true;
         this.drawInterval = 0;
 
-        this.playerBoat.sfx.play();
+        this.playerBoat.sfx.play(this.music.getSeek());
     }
 
     ResetLevel(){
@@ -261,7 +261,9 @@ class Play extends Phaser.Scene{
         }
         //this.level.createLevel(); // create new level before transitoning
         this.ui.setLevelNumber(this.levelNumber);
-        this.levelTransition();
+        if (this.levelNumber != 1) {
+            this.levelTransition();
+        }
         return this.level;
     }
 

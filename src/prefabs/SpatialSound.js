@@ -44,9 +44,9 @@ class SpatialSound extends Phaser.GameObjects.GameObject{
         this.r.volume = this.base_volume * dist_ratio * r_pan_ratio; 
     }
 
-    play() {
-        this.l.play();
-        this.r.play();
+    play(seek = 0) {
+        this.l.play({seek: seek});
+        this.r.play({seek: seek});
     }
 
     stop(){

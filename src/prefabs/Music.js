@@ -12,8 +12,14 @@ class Music extends Phaser.GameObjects.GameObject{
         }
 
         this.layerNum = -1;
+        this.isPlaying = false;
+    }
 
-        this.fadeInFlag = false;
+    getSeek() {
+        if (this.isPlaying) 
+            return this.musicLayers[0].seek;
+        else 
+            return 0;
     }
 
     addLayer() {
@@ -34,6 +40,7 @@ class Music extends Phaser.GameObjects.GameObject{
         this.musicLayers.forEach(layer => {
             layer.play();
         });
+        this.isPlaying = true;
     }
 
     stopPlayback() {
