@@ -32,7 +32,7 @@ class Load extends Phaser.Scene {
         this.load.image("enemyboat",            "Red_Ship.png");
         this.load.image("backgroundgrid",       "Grid.png");
         this.load.image("objective",            "Objective.png");
-        this.load.image("exitpoint",            "Exit.png");
+        this.load.image("exitpoint",            "Exit_Flag.png");
         // Load audio:
         this.load.audio('a_l', 'audio/drone_a_l.wav');
         this.load.audio('a_r', 'audio/drone_a_r.wav');
