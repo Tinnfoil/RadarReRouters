@@ -10,7 +10,7 @@ class Level6 extends BaseLevel{
         //this.createObjective(0.6, 0.4, 'bum');
        // this.createObjective(0.7, 0.3, 'bum');
         //this.createFinalObjective(screenWidth/2 + 300, screenHeight/2 - 300, 'bum');
-        
+      
         this.createEnemy(
             null, 
             [1, 0.4,
@@ -51,7 +51,6 @@ class Level6 extends BaseLevel{
             'enemyboat',
             'd'
         );
-
 
         this.createLand(0.2, 0.7, 0);
         this.createLand(0.4, 0.3, 0);

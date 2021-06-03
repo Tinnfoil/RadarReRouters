@@ -33,10 +33,17 @@ class Play extends Phaser.Scene{
         this.trailGhost = null; this.lastPointx = 0; this.lastPointy = 0;
 
         // Create UI Scene
-        this.scene.launch('uiScene');
-        this.ui = this.scene.get('uiScene');
-        this.ui.events.on('followPath', this.FollowPath, this);
-        this.ui.events.on('resetLevel', this.ResetLevel, this);
+        if(ui == null){
+            this.scene.launch('uiScene');
+            this.ui = this.scene.get('uiScene');
+            this.ui.events.on('followPath', this.FollowPath, this);
+            this.ui.events.on('resetLevel', this.ResetLevel, this);
+            ui = this.ui;
+        }
+        else{
+            this.scene.setVisible(true, "uiScene");
+        }
+
 
         // Create level and initialize it
         this.levelNumber;
@@ -230,8 +237,9 @@ class Play extends Phaser.Scene{
                 this.level = new Level6(this);
                 break;
             default:
+                this.playerBoat.Destroy();
                 this.level.clearLevel();
-                this.scene.remove("uiScene");
+                this.scene.setVisible(false, "uiScene");
                 this.scene.start('winScene');
                 //this.levelNumber = 1;
                 //this.level = new Level1(this);

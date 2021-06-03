@@ -37,6 +37,7 @@ let game = new Phaser.Game(config);
 
 
 // Set Globals
+let ui = null;
 let border = 64;
 let centerX      = game.config.width/2;
 let centerY      = game.config.height/2;
