@@ -17,12 +17,13 @@ class FinalObjectivePoint extends Phaser.GameObjects.Sprite {
 
     UnHover(){
         this.alpha = .5;
+        this.scale = .25;
         this.hovered = false;
     }
 
     Hover(){
         this.alpha = 1;
-        this.scale = 1.1;
+        this.scale = .3;
         this.hovered = true;
     }
 

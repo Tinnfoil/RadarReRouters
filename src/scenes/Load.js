@@ -18,17 +18,21 @@ class Load extends Phaser.Scene {
 
         this.load.path = './assets/';
         // Load graphics:
-        this.load.image('titlescreen', "Title_Screen.png");
-        this.load.image('startbutton', "Start_Button.png");
-        this.load.image("gobutton",    "TestGoButton.png");
-        this.load.image("restart",     "Restart.png");
-        this.load.image("playerboat",  "Ship_01.png");
-        this.load.image("drawfinger",  "TestFinger.png");
-        this.load.image("island",      "Island.png");
-        this.load.image("enemyboat",   "Ship_02.png");
-        this.load.image("backgroundgrid", "Grid.png");
-        this.load.image("objective",      "TestObjective.png");
-        this.load.image("exitpoint",      "exit.png");
+        this.load.image('titlescreen',          "Title_Screen.png");
+        this.load.image('startbutton',          "Start_Button.png");
+        this.load.image("gobutton",             "Go_Button.png");
+        this.load.image("restart",              "Restart.png");
+        this.load.image("playerboat",           "Green_Ship.png");
+        this.load.image("drawfinger",           "TestFinger.png");
+        this.load.image("island",               "Island.png");
+        this.load.image("verticalisland",       "Island_2.png");
+        this.load.image("smallisland",          "Island_3.png");
+        this.load.image("cornerisland",         "Island_4.png");
+        this.load.image("horizontalisland",     "Island_5.png");
+        this.load.image("enemyboat",            "Red_Ship.png");
+        this.load.image("backgroundgrid",       "Grid.png");
+        this.load.image("objective",            "Objective.png");
+        this.load.image("exitpoint",            "Exit.png");
         // Load audio:
         this.load.audio('a_l', 'audio/drone_a_l.wav');
         this.load.audio('a_r', 'audio/drone_a_r.wav');

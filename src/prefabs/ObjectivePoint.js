@@ -8,6 +8,7 @@ class ObjectivePoint extends Phaser.GameObjects.Sprite {
         this.colRad = 20;
 
         this.alpha = .5;
+        this.scale = .05;
         this.hovered = false;
 
         // objective 'pickup' sfx
@@ -20,7 +21,7 @@ class ObjectivePoint extends Phaser.GameObjects.Sprite {
 
     Hover(){
         this.alpha = 1;
-        this.scale = 1.1;
+        this.scale = 0.075;
         this.hovered = true;
     }
 
