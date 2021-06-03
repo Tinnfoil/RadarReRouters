@@ -202,7 +202,7 @@ class BaseLevel extends Phaser.GameObjects.GameObject{
             if(Math.sqrt(Math.pow(land.y - mousey,2)+Math.pow(land.x - mousex,2)) < (land.colRad)) 
             {
                 for (let j = 0; j < land.colliders.length; j++) {
-                    let col = land.colliders[i];
+                    let col = land.colliders[j];
                     if(Math.sqrt(Math.pow(col[1] - mousey,2)+Math.pow(col[0] - mousex,2)) < (col[2] + this.scene.playerBoat.colRad)) 
                     {
                         //console.log("STOP");

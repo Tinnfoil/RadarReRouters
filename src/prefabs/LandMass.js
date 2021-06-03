@@ -10,8 +10,7 @@ class LandMass extends Phaser.GameObjects.Sprite {
                 key = 'island'
                 scale = .4;
                 colBlueprint = [
-                    [.5, .5, 120],
-                    [0.5, 0.5, 50]
+                    [.5, .5, 120]
                 ]   
         }
         super (scene, x, y, key)
