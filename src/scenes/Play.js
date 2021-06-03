@@ -257,6 +257,7 @@ class Play extends Phaser.Scene{
                 //this.level = new Level1(this);
         }
         //this.level.createLevel(); // create new level before transitoning
+        this.ui.setLevelNumber(this.levelNumber);
         this.levelTransition();
         return this.level;
     }

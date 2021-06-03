@@ -19,6 +19,13 @@ class UI extends Phaser.Scene {
         this.redoButton.on('pointerdown', () => { this.events.emit('resetLevel'); });
         this.goEnabled = false;
 
+        this.levelNum = this.add.text(0, 0, 'Level 1').setOrigin(0,0);
+    }
+
+    setLevelNumber(number){
+        if(this.levelNum != null){  
+            this.levelNum.text = "Level " + number;
+        }
     }
 
     turnOnGoButton(){
