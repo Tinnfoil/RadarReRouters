@@ -14,8 +14,8 @@ class Win extends Phaser.Scene{
         this.returnButton = this.add.sprite(game.config.width/2, game.config.height/3, 'returnbutton');
         this.returnButton.setInteractive();
 
-        this.returnButton.on('pointerover', () => { this.startButton.alpha = .5;});
-        this.returnButton.on('pointerout', () => { this.startButton.alpha = 1;});
+        this.returnButton.on('pointerover', () => { this.returnButton.alpha = .5;});
+        this.returnButton.on('pointerout', () => { this.returnButton.alpha = 1;});
         this.returnButton.on('pointerdown', () => { this.scene.start('menuScene');});
     }
 
