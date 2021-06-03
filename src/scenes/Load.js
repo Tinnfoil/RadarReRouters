@@ -33,6 +33,9 @@ class Load extends Phaser.Scene {
         this.load.image("backgroundgrid",       "Grid.png");
         this.load.image("objective",            "Objective.png");
         this.load.image("exitpoint",            "Exit_Flag.png");
+        this.load.image('winscreen',            "Win_Screen.png");
+        this.load.image('returnbutton',         "Return_Button.png");
+
         // Load audio:
         this.load.audio('a_l', 'audio/drone_a_l.wav');
         this.load.audio('a_r', 'audio/drone_a_r.wav');
