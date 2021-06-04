@@ -120,6 +120,7 @@ class Play extends Phaser.Scene{
     ResetLevel(){
         if(this.boatPath == null) return;
         //Reset Player Position 
+        this.level.resetLevel();
         this.boatPath.destroy(); this.boatPath = null;
         this.playerBoat.Destroy();
         if(this.trailGhost != null){this.trailGhost.Destroy(); this.trailGhost = null;}
@@ -128,7 +129,7 @@ class Play extends Phaser.Scene{
         this.mouseFreeze = true;
         this.ui.turnOffGoButton();
         if(this.drawFinger != null){this.drawFinger.destroy();} 
-        this.level.resetLevel();
+
     }
 
     update(time, delta) {  
@@ -253,12 +254,27 @@ class Play extends Phaser.Scene{
             case 6:
                 this.level = new Level6(this);
                 break;
+            case 7:
+                this.level = new Level7(this);
+                break;
+            case 8:
+                this.level = new Level8(this);
+                break;
+            case 9:
+                this.level = new Level9(this);
+                break;
+            case 10:
+                this.level = new Level10(this);
+                break;
+            case 11:    // This should be the case after the last
+                this.level = new LevelWin(this);
+                break;
             default:
                 this.playerBoat.Destroy();
                 this.level.clearLevel();
                 this.scene.setVisible(false, "uiScene");
                 this.music.stopPlayback();
-                this.scene.start('winScene');
+                this.scene.start('menuScene');
                 //this.levelNumber = 1;
                 //this.level = new Level1(this);
         }
