@@ -13,18 +13,18 @@ class Level6 extends BaseLevel{
       
         this.createEnemy(
             null, 
-            [1, 0.4,
+            [1, 0.5,
             0, 0.5], 
-            2,
+            1.5,
             0, 
             'enemyboat',
             'd'
         );
         this.createEnemy(
             null, 
-            [1, 0.4,
+            [1, 0.5,
             0, 0.5], 
-            2,
+            1.5,
             .5, 
             'enemyboat',
             'd'
@@ -35,7 +35,7 @@ class Level6 extends BaseLevel{
             .35, 0.6,
             .2, 0.3,
             .4, 0], 
-            1.55,
+            1.5,
             .5, 
             'enemyboat',
             'd'
@@ -52,9 +52,10 @@ class Level6 extends BaseLevel{
             'd'
         );
 
-        this.createLand(0.2, 0.7, 0);
-        this.createLand(0.4, 0.3, 0);
-        this.createLand(0.6, 0.1, 0);
-        this.createLand(0.5, 0.7, 0);
+        this.createLand(0.3, 0.35, 3, .2);
+        this.createLand(0.4, 0.25, 2, .3);
+        this.createLand(0.6, 0.25, 4);
+        this.createLand(0.47, 0.75, 2);
+        this.createLand(0.65, 0.6, 5);
     }
 }

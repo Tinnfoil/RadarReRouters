@@ -1,6 +1,6 @@
 class Level2 extends BaseLevel{
     constructor(scene) {
-        super(scene, 10000, gameWidth + 300, -200); 
+        super(scene, 10000, gameWidth + 300, -400); 
     }
 
     createLevel(){
@@ -12,14 +12,16 @@ class Level2 extends BaseLevel{
         
         this.createEnemy(
             null, 
-            [1, 0.6,
-            0, 0.4], 
+            [1, 0.3,
+            0.6, 0.7,
+            0.5, 0.3,
+            0, 0.6], 
             1,
-            0, 
+            0.5, 
             'enemyboat',
-            'd'
+            'a'
         );
 
-        this.createLand(0.7, 0.7, 0);
+        //this.createLand(0.2, 0.2, 0);
     }
 }

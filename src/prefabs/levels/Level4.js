@@ -14,7 +14,7 @@ class Level4 extends BaseLevel{
             null, 
             [1, 0.4,
             0, 0.5], 
-            .4,
+            .5,
             0, 
             'enemyboat',
             'd'
@@ -41,6 +41,7 @@ class Level4 extends BaseLevel{
             'a'
         );
 
-        this.createLand(0.7, 0.7, 0);
+        this.createLand(0.3, 0.3, 3);
+        this.createLand(0.7, 0.8, 2, .6);
     }
 }

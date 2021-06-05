@@ -1,12 +1,12 @@
 class Enemy extends Phaser.GameObjects.PathFollower {
-    constructor(scene, path, points, time, startAt, sprite, sfx_key) {
+    constructor(scene, path, points, time, startAt, sprite, sfx_key, flipx) {
         super(scene, path, points[0], points[1], sprite); 
         scene.add.existing(this);
 
         this.scale = 0.175;
         // size of circular radius to check collisions
         this.colRad = 30;
-        this.flipX = true;
+        this.flipX = flipx;
 
         if (points.length > 4) {
             // taken from the phaser examples:

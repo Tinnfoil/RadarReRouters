@@ -32,7 +32,7 @@ class Level5 extends BaseLevel{
             'd'
         ); */
 
-        this.createLand(0.4, 0.8, 0);
-        this.createLand(0.4, 0.2, 0);
+        this.createLand(0.4, 0.8, 1);
+        this.createLand(0.4, 0.2, 2);
     }
 }

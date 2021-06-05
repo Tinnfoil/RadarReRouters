@@ -105,7 +105,7 @@ class BaseLevel extends Phaser.GameObjects.GameObject{
         }
 
         for (let i = 0; i < this.LandList.length; i++) {
-            this.LandList.getAt(i).destroy();
+            this.LandList.getAt(i).Destroy();
             this.LandList.removeAt(i);
             i--;
         }
@@ -122,7 +122,7 @@ class BaseLevel extends Phaser.GameObjects.GameObject{
         this.ExitPoint = finalobjectivepoint;
     }
 
-    createEnemy(path, points, speed, startAt, sprite, sfx_key){
+    createEnemy(path, points, speed, startAt, sprite, sfx_key, flipx = true){
         // Compute world path from local path coods
         let worldPoints = points;
         for (let i = 0; i < points.length; i++) {
@@ -132,13 +132,13 @@ class BaseLevel extends Phaser.GameObjects.GameObject{
                 worldPoints[i] += this.toWorldX(points[i]);
             }
         }
-        let enemy = new Enemy(this.scene, path, worldPoints, this.baseTime * speed, startAt, sprite, sfx_key);
+        let enemy = new Enemy(this.scene, path, worldPoints, this.baseTime * speed, startAt, sprite, sfx_key, flipx);
         this.EnemyList.add(enemy);
     }
 
-    createLand (xr, yr, type) {
+    createLand (xr, yr, type, scale = .4) {
         console.log("creating land")
-        let land = new LandMass(this.scene, this.toWorldX(xr), this.toWorldY(yr), type);
+        let land = new LandMass(this.scene, this.toWorldX(xr), this.toWorldY(yr), type, scale);
         this.LandList.add(land);
     }
 
@@ -203,7 +203,7 @@ class BaseLevel extends Phaser.GameObjects.GameObject{
             {
                 for (let j = 0; j < land.colliders.length; j++) {
                     let col = land.colliders[j];
-                    if(Math.sqrt(Math.pow(col[1] - mousey,2)+Math.pow(col[0] - mousex,2)) < (col[2] + this.scene.playerBoat.colRad)) 
+                    if(Math.sqrt(Math.pow(col[1] - mousey,2)+Math.pow(col[0] - mousex,2)) < (col[2] + this.scene.playerBoat.colRad/4)) 
                     {
                         //console.log("STOP");
                         return false;
