@@ -50,7 +50,7 @@ class Play extends Phaser.Scene{
 
         // Create level and initialize it
         this.levelNumber;
-        this.level = this.SetLevel(1);
+        this.level = this.SetLevel(8);
         this.level.startLevel();
 
         // For pausing updates while transitioning

@@ -53,7 +53,8 @@ class Level6 extends BaseLevel{
         );
 
         this.createLand(0.3, 0.35, 3, .2);
-        this.createLand(0.4, 0.25, 2, .3);
+        this.createLand(0.4, 0.3, 2, .3);
+        this.createLand(0.42, 0.06, 3, .2);
         this.createLand(0.6, 0.25, 4);
         this.createLand(0.47, 0.75, 2);
         this.createLand(0.65, 0.6, 5);

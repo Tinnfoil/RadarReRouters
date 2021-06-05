@@ -5,24 +5,15 @@ class Level7 extends BaseLevel{
 
     createLevel(){
 
-         this.createObjective(0.5, 0.5, 'bum');
-        this.createObjective(0.4, 0.4, 'bum');
+        //this.createObjective(0.5, 0.5, 'bum');
+        this.createObjective(0.3, 0.5, 'bum');
         this.createObjective(0.6, 0.6, 'bum');
 
-        this.createEnemy(
-            null, 
-            [.7, 0,
-            0, .7], 
-            .5,
-            0, 
-            'enemyboat',
-            'd'
-        );
 
         this.createEnemy(
             null, 
-            [1, .3,
-            .3, 1], 
+            [1, .4,
+            .4, 1], 
             .5,
             0, 
             'enemyboat',
@@ -68,5 +59,8 @@ class Level7 extends BaseLevel{
             'enemyboat',
             'd'
         );
+
+        this.createLand(0.5, 0.65, 3, .3);
+        this.createLand(0.65, 0.47, 3, .3);
     }
 }

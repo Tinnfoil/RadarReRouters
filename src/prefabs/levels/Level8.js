@@ -1,9 +1,74 @@
 class Level8 extends BaseLevel{
     constructor(scene) {
-        super(scene, 10000, gameWidth + 300, -200); 
+        super(scene, 10000, gameWidth + 500, -200); 
     }
 
     createLevel(){
+        this.createEnemy(
+            null, 
+            [1, 0.5,
+            0, 0.5], 
+            .5,
+            0, 
+            'enemyboat',
+            'd'
+        );
+        this.createEnemy(
+            null, 
+            [1, 0.5,
+            0, 0.5], 
+            .5,
+            .1, 
+            'enemyboat',
+            'd'
+        );
+        this.createEnemy(
+            null, 
+            [1, 0.5,
+            0, 0.5], 
+            .5,
+            .2, 
+            'enemyboat',
+            'd'
+        );
+        this.createEnemy(
+            null, 
+            [1, 0.5,
+            0, 0.5], 
+            .5,
+            .3, 
+            'enemyboat',
+            'd'
+        );
+        this.createEnemy(
+            null, 
+            [1, 0.5,
+            0, 0.5], 
+            .5,
+            .4, 
+            'enemyboat',
+            'd'
+        );
+        this.createEnemy(
+            null, 
+            [1, 0.5,
+            0, 0.5], 
+            .5,
+            .5, 
+            'enemyboat',
+            'd'
+        );
+
+        this.createObjective(0.1, 0.3, 'bum');
+        this.createObjective(0.25, 0.3, 'bum');
+
+        this.createObjective(0.35, 0.7, 'bum');
+        this.createObjective(0.45, 0.7, 'bum');
+
+        this.createLand(0.4, 0.235, 2, .6);
+        this.createLand(0.2, 0.75, 2, .6);
+        this.createLand(0.6, 0.75, 2, .6);
+
         /*
         this.createObjective(0.7, 0.3, 'bum');
         

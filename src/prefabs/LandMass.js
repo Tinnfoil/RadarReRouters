@@ -12,7 +12,7 @@ class LandMass extends Phaser.GameObjects.Sprite {
                 colBlueprint = [
                     [.4, .2, 175],
                     [.55, .4, 175],
-                    [.5, .8, 225]
+                    [.5, .75, 225]
                 ]  
                 break;
             case 3:
