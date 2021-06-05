@@ -42,6 +42,8 @@ class Enemy extends Phaser.GameObjects.PathFollower {
 
         this.sfx = new SpatialSound(scene, this, sfx_key, 0.33, true);
         this.sfx.play();
+
+        this.anims.play('ship');
     }
 
     start() {

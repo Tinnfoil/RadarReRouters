@@ -30,6 +30,7 @@ class Play extends Phaser.Scene{
 
         // Initialize the gameobject the player will use as the boat
         this.playerBoat = new PlayerBoat(this, null, border, screenHeight - border);
+        this.playerBoat.depth = 1;
         this.trailGhost = null; this.lastPointx = 0; this.lastPointy = 0;
 
         // Create UI Scene
@@ -49,7 +50,7 @@ class Play extends Phaser.Scene{
 
         // Create level and initialize it
         this.levelNumber;
-        this.level = this.SetLevel(1);
+        this.level = this.SetLevel(2);
         this.level.startLevel();
 
         // For pausing updates while transitioning
@@ -226,7 +227,6 @@ class Play extends Phaser.Scene{
 
         this.level.updateSFX();
         this.playerBoat.update(time, delta);
-        
          
         //this.cameras.main.followOffset.x = 200;
         // 70 * Math.cos(time/250));

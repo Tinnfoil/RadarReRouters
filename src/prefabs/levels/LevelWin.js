@@ -5,7 +5,7 @@ class LevelWin extends BaseLevel{
 
     createLevel(){
         this.winScreen = this.scene.add.sprite(this.startX + gameWidth/2, this.startY - gameHeight/2, 'winscreen').setOrigin(.5);
-        this.winScreen.setDepth(0);
+        //this.winScreen.depth = -100;
         /*
         this.createObjective(0.7, 0.3, 'bum');
         

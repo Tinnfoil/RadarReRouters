@@ -24,6 +24,8 @@ class PlayerBoat extends Phaser.GameObjects.PathFollower {
         this.circle = new Phaser.Geom.Circle(this.x, this.y, this.colRad );
 
         this.sfx = new SpatialSound(scene, this, 'blip', 0.5, true);
+
+        this.anims.play('sub');
     }
 
     Destroy(){
