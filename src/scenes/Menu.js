@@ -13,10 +13,13 @@ class Menu extends Phaser.Scene{
         this.startButton.on('pointerover', () => { this.startButton.alpha = .5;});
         this.startButton.on('pointerout', () => { this.startButton.alpha = 1;});
         this.startButton.on('pointerdown', () => { this.scene.start('playScene');});
-    }
 
-    update() {
-
+        if (globalAudio == null) {
+            this.scene.launch('globalAudioScene');
+            console.log("called");
+            this.globalAudio = this.scene.get('globalAudioScene');
+            globalAudio = this.globalAudio
+        }
     }
 }
 
