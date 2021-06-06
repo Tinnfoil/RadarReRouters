@@ -20,6 +20,8 @@ class UI extends Phaser.Scene {
         this.goEnabled = false;
 
         this.levelNum = this.add.text(0, 0, 'Level 1').setOrigin(0,0);
+
+        this.cameras.main.fadeIn(200);
     }
 
     setLevelNumber(number){

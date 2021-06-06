@@ -12,14 +12,22 @@ class Menu extends Phaser.Scene{
 
         this.startButton.on('pointerover', () => { this.startButton.alpha = .5;});
         this.startButton.on('pointerout', () => { this.startButton.alpha = 1;});
-        this.startButton.on('pointerdown', () => { this.scene.start('playScene');});
+        this.startButton.on('pointerdown', () => { this.fadeOut();});
 
         if (globalAudio == null) {
             this.scene.launch('globalAudioScene');
-            console.log("called");
             this.globalAudio = this.scene.get('globalAudioScene');
             globalAudio = this.globalAudio
         }
+        this.cameras.main.fadeIn(200);
+
+        this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
+            this.scene.start('playScene');
+        });
+    }
+
+    fadeOut() {
+        this.cameras.main.fadeOut(200);
     }
 }
 
