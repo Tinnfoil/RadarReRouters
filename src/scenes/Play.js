@@ -85,6 +85,7 @@ class Play extends Phaser.Scene{
         }
     }
 
+    // Make the player start moving on the path
     FollowPath(){
         if(this.boatPath == null || !this.ui.goEnabled){return;}
 
@@ -95,9 +96,7 @@ class Play extends Phaser.Scene{
         let x = this.boatPath.getStartPoint().x;
         let y = this.boatPath.getStartPoint().y;  
         
-        // this.playerBoat = this.add.follower(this.boatPath, x, y, 'playerboat').setScale(0.5);
         this.playerBoat.path = this.boatPath;
-        //this.playerBoat.path = this.boatCurve;
         this.playerBoat.x = x; this.playerBoat.y = y;
         let pathlength = this.boatPath.getLength();
        
@@ -118,6 +117,7 @@ class Play extends Phaser.Scene{
         this.playerBoat.sfx.play(this.music.getSeek());
     }
 
+    // Reset the level whether or not the player lost or manually reset
     ResetLevel(){
         if(this.boatPath == null) return;
         //Reset Player Position 
@@ -168,7 +168,6 @@ class Play extends Phaser.Scene{
                     ];
                     //console.log(touchX - this.lastX);
                     let curve = new Phaser.Curves.QuadraticBezier(points);
-                    //this.boatPath.lineTo(touchX, touchY);
                     this.boatPath.add(curve);
                     this.boatPath.draw(this.graphics);
     
@@ -227,9 +226,6 @@ class Play extends Phaser.Scene{
 
         this.level.updateSFX();
         this.playerBoat.update(time, delta);
-         
-        //this.cameras.main.followOffset.x = 200;
-        // 70 * Math.cos(time/250));
     }
 
     SetLevel(levelnum = null){
@@ -275,10 +271,7 @@ class Play extends Phaser.Scene{
                 this.scene.setVisible(false, "uiScene");
                 this.music.stopPlayback();
                 this.scene.start('menuScene');
-                //this.levelNumber = 1;
-                //this.level = new Level1(this);
         }
-        //this.level.createLevel(); // create new level before transitoning
         this.ui.setLevelNumber(this.levelNumber);
         if (this.levelNumber != 1) {
             this.levelTransition();
