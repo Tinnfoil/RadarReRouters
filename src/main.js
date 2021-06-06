@@ -28,7 +28,7 @@ let config = {
             }
         }
     },
-    scene: [Load, Menu, Play, UI, Win],
+    scene: [Load, Menu, GlobalAudio, Play, UI, Win],
     debug: false
 }
 
@@ -38,6 +38,7 @@ let game = new Phaser.Game(config);
 
 // Set Globals
 let ui = null;
+let globalAudio = null;
 let border = 64;
 let centerX      = game.config.width/2;
 let centerY      = game.config.height/2;

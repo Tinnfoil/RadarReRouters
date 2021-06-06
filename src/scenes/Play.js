@@ -4,6 +4,10 @@ class Play extends Phaser.Scene{
     }
 
     create() {
+        this.cameras.main.fadeIn(1500);
+        this.cameras.main.scrollX = -gameWidth/2;
+        this.cameras.main.scrollY = gameWidth/2;
+
         this.cameras.main.setBackgroundColor('#000000')
         this.grid = this.add.tileSprite(-screenWidth, -screenHeight, screenWidth * 3, screenHeight * 3, 'backgroundgrid').setOrigin(0, 0);
         this.grid.setScrollFactor(0);
@@ -273,9 +277,7 @@ class Play extends Phaser.Scene{
                 this.scene.start('menuScene');
         }
         this.ui.setLevelNumber(this.levelNumber);
-        if (this.levelNumber != 1) {
-            this.levelTransition();
-        }
+        this.levelTransition();
         return this.level;
     }
 
@@ -289,7 +291,9 @@ class Play extends Phaser.Scene{
         if(this.lastLevel != null){
             this.lastLevel.stopLevel();
         }
-        this.music.addLayer();
+        if(this.levelNumber != 1) {
+            this.music.addLayer();
+        }
         this.cameras.main.pan(this.level.centerX, this.level.centerY, transitionTime, 'Sine.easeInOut', false, this.transistionCallback);
         this.cameras.main.zoomTo(this.level.zoomLevel, transitionTime, 'Sine.easeInOut');
     }
@@ -298,14 +302,16 @@ class Play extends Phaser.Scene{
         if(this.lastLevel != null){
             this.lastLevel.updateSFX();
         }
-        this.music.fadeInLayer(progress);
+        if(this.levelNumber != 1) {
+            this.music.fadeInLayer(progress);
+        }
         // update tilesprite
         this.grid.tilePositionX = this.cameras.main.scrollX;
         this.grid.tilePositionY = this.cameras.main.scrollY;
         this.grid.tileScale = this.cameras.main.zoom;
         //console.log (this.cameras.main.scrollX, this.cameras.main.scrollY);
         if (progress == 1) {
-            console.log("transition complete");
+            //console.log("transition complete");
             this.isCameraMove = false;
             if(this.lastLevel != null){
                 this.lastLevel.clearLevel();
