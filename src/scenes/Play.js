@@ -59,7 +59,7 @@ class Play extends Phaser.Scene{
 
         // Create level and initialize it
         this.levelNumber;
-        this.level = this.SetLevel(6);
+        this.level = this.SetLevel(1);
         this.level.startLevel();
 
         // For pausing updates while transitioning
@@ -161,6 +161,7 @@ class Play extends Phaser.Scene{
             this.ui.turnOffGoButton();
             this.mouseFreeze = true;
         }
+        this.ui.toggleResetButton(!pathreset);
         this.playerBoat.Destroy();
         if(this.trailGhost != null){this.trailGhost.Destroy(); this.trailGhost = null;}
         this.playerBoat = new PlayerBoat(this, null, this.level.startX, this.level.startY);
@@ -203,6 +204,7 @@ class Play extends Phaser.Scene{
                 this.lastlastX = this.lastX - 1;
                 this.lastlastY = this.lastY + 1; 
                 this.lastPointx = this.boatPath.getStartPoint().x; this.lastPointy = this.boatPath.getStartPoint().y; this.lastPointIndex = 0;
+                this.ui.toggleResetButton(true);
             }
             else if((this.drawing == true && (Math.abs(this.lastX - touchX) > 8 || Math.abs(this.lastY - touchY) > 8)) ||
             (this.drawing == false && (Math.abs(this.lastX - touchX) < 40 && Math.abs(this.lastY - touchY) < 40))){

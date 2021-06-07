@@ -15,6 +15,7 @@ class UI extends Phaser.Scene {
         // Draw redo button as fixed UI element
         this.redoButton = this.add.image(screenWidth - 32, screenHeight - 128 - 32, 'restart').setOrigin(0,0);
         this.redoButton.setInteractive();
+        this.toggleResetButton(false);
         //this.redoButton.setScrollFactor(0); // fix to camera
         this.redoButton.on('pointerdown', () => { this.events.emit('resetLevel'); });
         this.goEnabled = false;
@@ -47,5 +48,14 @@ class UI extends Phaser.Scene {
         if(this.goButton == null) return;
         this.goEnabled = false;
         this.goButton.alpha = .5;
+    }
+
+    toggleResetButton(on = true){
+        if(on){
+            this.redoButton.alpha = 1;
+        }
+        else{
+            this.redoButton.alpha = .5;
+        }
     }
 }
