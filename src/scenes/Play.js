@@ -14,6 +14,12 @@ class Play extends Phaser.Scene{
 
         // Set Keyboard controls
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+        keyR     = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
+        keyLEFT  = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
+        keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
+
+        keyLEFT.on('down', this.debugPrevLevel, this);
+        keyRIGHT.on('down', this.debugNextLevel, this);
 
         // Set up the mouse
         this.mouse = this.input.activePointer;
@@ -144,7 +150,7 @@ class Play extends Phaser.Scene{
         if(this.boatPath == null) return;
         //Reset Player Position 
         this.level.resetLevel();
-        this.ResetPlayer()
+        this.ResetPlayer();
     }
 
     ResetPlayer() {
@@ -180,6 +186,10 @@ class Play extends Phaser.Scene{
                 this.level.resetObjectives(true);
             }
             this.FollowPath();
+        }
+
+        if (Phaser.Input.Keyboard.JustDown(keyR)) {
+            this.ResetAll();
         }
  
         if (this.mouse.isDown && this.drawInterval <= 0 && this.mouseFreeze == false) {
@@ -372,4 +382,14 @@ class Play extends Phaser.Scene{
             }             
         }
     }  
+
+    debugNextLevel() {
+        this.playerBoat.setPosition(this.level.ExitPoint.x, this.level.ExitPoint.y);
+        this.level.GoToNextLevel(this.playerBoat);
+    }
+
+    debugPrevLevel() {
+        this.playerBoat.setPosition(this.playerBoat.x - gameWidth, this.playerBoat.y + gameHeight);
+        this.level.GoToNextLevel(this.playerBoat, -1);
+    }
 }

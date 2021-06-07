@@ -50,3 +50,6 @@ let transitionTime = 3000;
 
 // Set Keyboard keys
 let keySPACE;
+let keyR;
+let keyLEFT;
+let keyRIGHT;

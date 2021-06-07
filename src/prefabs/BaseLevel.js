@@ -195,14 +195,17 @@ class BaseLevel extends Phaser.GameObjects.GameObject{
             // Now check for LZ for final objective
             if(Phaser.Math.Distance.BetweenPoints(playerBoat, this.ExitPoint) <  playerBoat.colRad + this.ExitPoint.colRad) 
             {
-                this.ExitPoint.Collect();
-                this.ExitPoint.DestroySelf();
-                this.ExitPoint = null;
-                playerBoat.stopFollow();
-                this.scene.SetLevel(this.scene.levelNumber+1);
+                this.GoToNextLevel(playerBoat);
             }
-        
         }
+    }
+
+    GoToNextLevel(playerBoat, num = 1) {
+        this.ExitPoint.Collect();
+        this.ExitPoint.DestroySelf();
+        this.ExitPoint = null;
+        playerBoat.stopFollow();
+        this.scene.SetLevel(this.scene.levelNumber + num);
     }
 
     checkHover(mousex, mousey){
