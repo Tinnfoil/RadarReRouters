@@ -170,6 +170,7 @@ class Play extends Phaser.Scene{
         this.playerBoat.Destroy();
         if(this.trailGhost != null){this.trailGhost.Destroy(); this.trailGhost = null;}
         this.playerBoat = new PlayerBoat(this, null, this.level.startX, this.level.startY);
+        this.boomSFX.parent = this.playerBoat;
         if(this.drawFinger != null){this.drawFinger.destroy();} 
     }
 
