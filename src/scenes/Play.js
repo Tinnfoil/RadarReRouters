@@ -263,14 +263,13 @@ class Play extends Phaser.Scene{
 
 
         if(this.boatPath != null && this.mouse.isDown == false && this.drawing == true){
-            if(this.level.ExitPoint.hovered == false){
-                this.drawFinger = this.add.sprite(this.boatPath.getEndPoint().x, this.boatPath.getEndPoint().y, 'drawfinger').setOrigin(0, 0);
-                this.fingerx = this.drawFinger.x; this.fingery = this.drawFinger.y;
-                if(this.trailGhost == null) {
-                    this.createTrailGhost(this.boatPath, 0);
-                }
+            this.drawFinger = this.add.sprite(this.boatPath.getEndPoint().x, this.boatPath.getEndPoint().y, 'drawfinger').setOrigin(0, 0);
+            this.fingerx = this.drawFinger.x; this.fingery = this.drawFinger.y;
+            if(this.trailGhost == null) {
+                this.createTrailGhost(this.boatPath, 0);
             }
-            else{
+
+            if(this.level.ExitPoint.hovered == true){
                 this.ui.turnOnGoButton();
             }
 
