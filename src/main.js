@@ -5,6 +5,13 @@ Kenny Doan
 Harrison Kurtz
 Collin Rowell
 
+Some Notes:
+This game is intended to be played with a mouse and keyboard
+So it may be difficult to play with a trackpad.
+
+[Left Arrow <-] to go to the previous level
+[Right Arrow ->] to go to the next level
+
 */
 
 //Game Configuration
