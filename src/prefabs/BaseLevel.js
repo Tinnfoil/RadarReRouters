@@ -158,7 +158,7 @@ class BaseLevel extends Phaser.GameObjects.GameObject{
             if(Phaser.Math.Distance.BetweenPoints( playerBoat, this.EnemyList.getAt(i)) < playerBoat.colRad + this.EnemyList.getAt(i).colRad)
             {
                 console.log("collided with enemy boat");
-                this.scene.ResetLevel();
+                this.scene.ResetAll();
             }
         }
 
@@ -219,6 +219,28 @@ class BaseLevel extends Phaser.GameObjects.GameObject{
     updateSFX() {
         for (let i = 0; i < this.EnemyList.length; i++) {
             this.EnemyList.getAt(i).update();
+        }
+    }
+
+    setAlphas(al) {    
+        for (let i = 0; i < this.EnemyList.length; i++) {
+            this.EnemyList.getAt(i).setAlpha(al);
+            this.EnemyList.getAt(i).graphics.setAlpha(al);
+        }
+
+        for (let i = 0; i < this.LandList.length; i++) {
+            this.LandList.getAt(i).setAlpha(al);
+        }
+    }
+
+    clearAlphas(al) {    
+        for (let i = 0; i < this.EnemyList.length; i++) {
+            this.EnemyList.getAt(i).clearAlpha(al);
+            this.EnemyList.getAt(i).graphics.clearAlpha(al);
+        }
+
+        for (let i = 0; i < this.LandList.length; i++) {
+            this.LandList.getAt(i).clearAlpha(al);
         }
     }
 }

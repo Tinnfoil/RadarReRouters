@@ -19,7 +19,14 @@ class UI extends Phaser.Scene {
         this.redoButton.on('pointerdown', () => { this.events.emit('resetLevel'); });
         this.goEnabled = false;
 
-        this.levelNum = this.add.text(0, 0, 'Level 1').setOrigin(0,0);
+        this.levelNum = this.add.text(screenWidth, screenHeight, 'Level 1').setOrigin(1,1);
+
+        this.exitButton = this.add.text(0, 0, '<- Exit To Title').setOrigin(0);
+        this.exitButton.setAlpha(0.25);
+        this.exitButton.setInteractive()
+        this.exitButton.on('pointerdown', () => { this.events.emit('exitToTitle') });
+        this.exitButton.on('pointerover', () => { this.exitButton.scale = 1.1;  this.exitButton.setAlpha(1);});
+        this.exitButton.on('pointerout', () => { this.exitButton.scale = 1;  this.exitButton.setAlpha(0.25); });
 
         this.cameras.main.fadeIn(200);
     }

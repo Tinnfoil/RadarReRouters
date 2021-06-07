@@ -42,7 +42,8 @@ class Play extends Phaser.Scene{
             this.scene.launch('uiScene');
             this.ui = this.scene.get('uiScene');
             this.ui.events.on('followPath', this.FollowPath, this);
-            this.ui.events.on('resetLevel', this.ResetLevel, this);
+            this.ui.events.on('resetLevel', this.ResetAll, this);
+            this.ui.events.on('exitToTitle', this.ExitToTitle, this);
             ui = this.ui;
         }
         else{
@@ -122,10 +123,14 @@ class Play extends Phaser.Scene{
     }
 
     // Reset the level whether or not the player lost or manually reset
-    ResetLevel(){
+    ResetAll(){
         if(this.boatPath == null) return;
         //Reset Player Position 
         this.level.resetLevel();
+        this.ResetPlayer()
+    }
+
+    ResetPlayer() {
         this.boatPath.destroy(); this.boatPath = null;
         this.playerBoat.Destroy();
         if(this.trailGhost != null){this.trailGhost.Destroy(); this.trailGhost = null;}
@@ -134,7 +139,6 @@ class Play extends Phaser.Scene{
         this.mouseFreeze = true;
         this.ui.turnOffGoButton();
         if(this.drawFinger != null){this.drawFinger.destroy();} 
-
     }
 
     update(time, delta) {  
@@ -270,15 +274,20 @@ class Play extends Phaser.Scene{
                 this.level = new LevelWin(this);
                 break;
             default:
-                this.playerBoat.Destroy();
-                this.level.clearLevel();
-                this.scene.setVisible(false, "uiScene");
-                this.music.stopPlayback();
-                this.scene.start('menuScene');
+                this.ExitToTitle();
+                
         }
         this.ui.setLevelNumber(this.levelNumber);
         this.levelTransition();
         return this.level;
+    }
+
+    ExitToTitle() {
+        this.playerBoat.Destroy();
+        this.level.clearLevel();
+        this.scene.setVisible(false, "uiScene");
+        this.music.stopPlayback();
+        this.scene.start('menuScene');
     }
 
     createTrailGhost(path, interpolation){
@@ -287,6 +296,7 @@ class Play extends Phaser.Scene{
 
     levelTransition() {
         this.ui.turnOffGoButton();
+        this.mouseFreeze = true;
         this.isCameraMove = true;
         if(this.lastLevel != null){
             this.lastLevel.stopLevel();
@@ -301,22 +311,28 @@ class Play extends Phaser.Scene{
     transistionCallback(cam = null, progress = 0) {
         if(this.lastLevel != null){
             this.lastLevel.updateSFX();
+            this.lastLevel.setAlphas(1 - progress);
         }
         if(this.levelNumber != 1) {
             this.music.fadeInLayer(progress);
         }
+        this.level.setAlphas(progress);
+        this.graphics.alpha = 1 - progress;
+
         // update tilesprite
         this.grid.tilePositionX = this.cameras.main.scrollX;
         this.grid.tilePositionY = this.cameras.main.scrollY;
         this.grid.tileScale = this.cameras.main.zoom;
         //console.log (this.cameras.main.scrollX, this.cameras.main.scrollY);
         if (progress == 1) {
+            this.graphics.alpha = 1;
+            this.level.clearAlphas();
             //console.log("transition complete");
             this.isCameraMove = false;
             if(this.lastLevel != null){
                 this.lastLevel.clearLevel();
                 this.lastLevel = null;
-                this.ResetLevel();
+                this.ResetAll();
             }             
         }
     }  
