@@ -8,6 +8,7 @@ class SpatialSound extends Phaser.GameObjects.GameObject{
         this.r = this.scene.sound.add(key + '_r', {volume: volume, loop: loop});
 
         this.base_volume = volume;
+        this.isPlaying = false;
     }
 
     update() {
@@ -15,7 +16,7 @@ class SpatialSound extends Phaser.GameObjects.GameObject{
         let cam_x = this.scene.cameras.main.scrollX + centerX;
         let cam_y = this.scene.cameras.main.scrollY + centerY;
 
-        let max_dist = this.scene.cameras.main.displayWidth / 1.75 + border;
+        let max_dist = this.scene.cameras.main.displayWidth / 1.8 + border;
         let min_dist = max_dist / 3;
 
         // get distance between source and main camera
@@ -47,11 +48,13 @@ class SpatialSound extends Phaser.GameObjects.GameObject{
     play(seek = 0) {
         this.l.play({seek: seek});
         this.r.play({seek: seek});
+        this.isPlaying = true;
     }
 
     stop(){
         this.l.stop();
         this.r.stop();
+        this.isPlaying = false;
     }
 
     remove() {

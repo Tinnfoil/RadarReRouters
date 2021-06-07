@@ -36,7 +36,8 @@ class Load extends Phaser.Scene {
         this.load.image("exitpoint",        "Exit_Flag.png");
         this.load.image('winscreen',        "Win_Screen.png");
         this.load.image('returnbutton',     "Return_Button.png");
-        this.load.image('particle',         "particle.png");
+        this.load.image('g_part',           "particle.png");
+        this.load.image('w_part',           "whitepart.png");
 
         // Load audio:
         this.load.path = './assets/audio/';
@@ -55,6 +56,8 @@ class Load extends Phaser.Scene {
         this.load.audio('g_r', 'g_r.mp3');
         this.load.audio('blip_l', 'blip_l.mp3');
         this.load.audio('blip_r', 'blip_r.mp3');
+        this.load.audio('draw_l', 'draw_l.mp3');
+        this.load.audio('draw_r', 'draw_r.mp3');
         this.load.audio('bum_l',  'bum_l.wav');
         this.load.audio('bum_r',  'bum_r.wav');
 

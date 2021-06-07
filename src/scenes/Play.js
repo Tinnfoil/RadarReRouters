@@ -86,7 +86,7 @@ class Play extends Phaser.Scene{
             add: true
         });
 
-        this.loseParticles = this.add.particles('particle').createEmitter({
+        this.loseParticles = this.add.particles('g_part').createEmitter({
             speed: { min: -500, max: 500 },
             angle: { min: 0, max: 360 },
             scale: { start: 1, end: 0 },
@@ -95,14 +95,18 @@ class Play extends Phaser.Scene{
             quantity: 8,
         });
 
-        this.drawParticles = this.add.particles('particle').createEmitter({
+        this.drawParticle = this.add.particles('w_part');
+        this.drawEmitter = this.drawParticle.createEmitter({
             speed: { min: -250, max: 250 },
             angle: { min: 0, max: 360 },
             scale: { start: 0.5, end: 0 },
+            alpha: .5,
             lifespan: 100,
             on: false,
-            quantity: 5,
+            quantity: 1,
         });
+
+        this.drawSound = new SpatialSound(this, this.drawParticle, 'draw', 0.25, true);
     }
 
     CheckDraw(){
@@ -196,8 +200,10 @@ class Play extends Phaser.Scene{
             let touchVec = this.cameras.main.getWorldPoint(this.mouse.x, this.mouse.y);
             let touchX = touchVec.x;
             let touchY = touchVec.y;
-            if(this.boatPath == null){
 
+            this.drawEmitter.setPosition(touchX, touchY);
+
+            if(this.boatPath == null){
                 this.boatPath = this.add.path(touchX, touchY);
                 this.lastX = touchX;
                 this.lastY = touchY;
@@ -211,6 +217,8 @@ class Play extends Phaser.Scene{
                 if(this.level.checkLandHover(touchX, touchY)){
                     console.log("Drawing");
                     this.graphics.clear()
+
+                    this.drawEmitter.explode();
     
                     this.drawInterval = Math.min(Math.max(Math.abs(this.lastX - touchX) +  Math.abs(this.lastY - touchY) - 16, 2), 8)
     
@@ -236,6 +244,8 @@ class Play extends Phaser.Scene{
                     if(this.trailGhost != null){this.trailGhost.PauseFollow()}
 
                     this.drawing = true;
+                    if(!this.drawSound.isPlaying) 
+                        this.drawSound.play();
                 }
                 else{   // Prompt the player they cant draw near land
                     this.mouse.isDown = false
@@ -246,6 +256,8 @@ class Play extends Phaser.Scene{
         else{
             this.drawInterval -= delta;
         }
+
+
 
         if(this.boatPath != null && this.mouse.isDown == false && this.drawing == true){
             if(this.level.ExitPoint.hovered == false){
@@ -263,6 +275,7 @@ class Play extends Phaser.Scene{
                 this.trailGhost.Follow(this.lastPointx, this.lastPointy , 0);
             }
             this.drawing = false;
+            this.drawSound.stop();
         }
 
         if (!this.isCameraMove) {
