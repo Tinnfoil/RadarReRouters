@@ -172,7 +172,7 @@ class Play extends Phaser.Scene{
         this.loseParticles.explode();
         if(reset)
             this.ResetPlayer(false);
-        this.level.resetObjectives();
+        this.level.resetObjectives(reset);
         //this.respawnTimer = this.time.delayedCall(1000, , [], this);
         //this.playerBoat.alpha = 0;
     }
