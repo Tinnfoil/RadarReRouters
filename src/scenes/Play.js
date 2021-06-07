@@ -326,13 +326,7 @@ class Play extends Phaser.Scene{
             case 8:
                 this.level = new Level8(this);
                 break;
-            case 9:
-                this.level = new Level9(this);
-                break;
-            case 10:
-                this.level = new Level10(this);
-                break;
-            case 11:    // This should be the case after the last
+            case 9:    // This should be the case after the last
                 this.level = new LevelWin(this);
                 break;
             default:
