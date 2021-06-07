@@ -8,7 +8,10 @@ class Play extends Phaser.Scene{
         this.cameras.main.scrollX = -gameWidth/2;
         this.cameras.main.scrollY = gameWidth/2;
 
-        this.cameras.main.setBackgroundColor('#000000')
+        //this.cameras.main.setBackgroundColor('#000000')
+        this.graphics = this.add.graphics();
+
+
         this.grid = this.add.tileSprite(-screenWidth, -screenHeight, screenWidth * 3, screenHeight * 3, 'backgroundgrid').setOrigin(0, 0);
         this.grid.setScrollFactor(0);
 
@@ -231,9 +234,16 @@ class Play extends Phaser.Scene{
 
         this.level.updateSFX();
         this.playerBoat.update(time, delta);
-         
-        //this.cameras.main.followOffset.x = 200;
-        // 70 * Math.cos(time/250));
+
+        this.graphics.clear();
+        this.graphics.fillGradientStyle(0x090E7B, 0x090E7B, 0x090E7B, 0x090E7B,
+            this.WaterColor(time, 666), this.WaterColor(time, 700), 
+            this.WaterColor(time, 543), this.WaterColor(time, 864));
+        this.graphics.fillRect(0, 0, screenWidth, screenHeight);
+    }
+
+    WaterColor(t, d) {
+        return Math.sin(t/d)/4 + 0.25;
     }
 
     SetLevel(levelnum = null){

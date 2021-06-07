@@ -12,7 +12,7 @@ Testing commit (Collin)
 
 //Game Configuration
 let config = {
-    type: Phaser.CANVAS,
+    type: Phaser.WEBGL,
     width: 960,
     height: 720,
     scale: {
