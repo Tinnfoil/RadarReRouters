@@ -48,6 +48,7 @@ class BaseLevel extends Phaser.GameObjects.GameObject{
 
         this.camera = this.scene.cameras.main;
         this.createLevel();
+        this.createObjectives();
     }
 
     // translate the 0 to 1 X screen value to world coords
@@ -62,9 +63,16 @@ class BaseLevel extends Phaser.GameObjects.GameObject{
         return ((this.height + (border * 2)) * yr) + this.originY - border;
     }
 
+    createObjectives() {
+        console.log("No objectives to create");
+    }
+
     createLevel() {
         console.log("No Level to create");
     }
+
+
+
 
     // start the enemies' path 
     startLevel() {
@@ -83,6 +91,7 @@ class BaseLevel extends Phaser.GameObjects.GameObject{
     resetLevel(){
         this.clearLevel();
         this.createLevel();
+        this.createObjectives();
         this.startLevel();
     }
 
@@ -108,6 +117,23 @@ class BaseLevel extends Phaser.GameObjects.GameObject{
             this.LandList.getAt(i).Destroy();
             this.LandList.removeAt(i);
             i--;
+        }
+    }
+
+    resetObjectives(hover = false) {
+        for (let i = 0; i < this.ObjectiveList.length; i++) {
+            this.ObjectiveList.getAt(i).DestroySelf();
+            this.ObjectiveList.removeAt(i);
+            i--;
+        }
+        this.objectiveHoverCount = 0;
+        this.createObjectives();
+
+        if (hover) {
+            for (let i = 0; i < this.ObjectiveList.length; i++) {
+                if(this.ObjectiveList.getAt(i).hovered == false){this.objectiveHoverCount -= 1;}
+                this.ObjectiveList.getAt(i).Hover();
+            }
         }
     }
 

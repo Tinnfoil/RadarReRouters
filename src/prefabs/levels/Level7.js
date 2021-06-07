@@ -6,8 +6,6 @@ class Level7 extends BaseLevel{
     createLevel(){
 
         //this.createObjective(0.5, 0.5, 'bum');
-        this.createObjective(0.3, 0.5, 'bum');
-        this.createObjective(0.6, 0.6, 'bum');
 
 
         this.createEnemy(
@@ -62,5 +60,9 @@ class Level7 extends BaseLevel{
 
         this.createLand(0.5, 0.65, 3, .3);
         this.createLand(0.65, 0.47, 3, .3);
+    }
+    createObjectives () {
+        this.createObjective(0.3, 0.5, 'bum');
+        this.createObjective(0.6, 0.6, 'bum');
     }
 }

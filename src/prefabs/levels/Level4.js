@@ -5,11 +5,7 @@ class Level4 extends BaseLevel{
 
     createLevel(){
         console.log("Level 4 Creation");
-        this.createObjective(0.7, 0.3, 'bum');
-        this.createObjective(0.6, 0.4, 'bum');
-        this.createObjective(0.4, 0.6, 'bum');
         //this.createFinalObjective(screenWidth/2 + 300, screenHeight/2 - 300, 'bum');
-        
         this.createEnemy(
             null, 
             [1, 0.4,
@@ -43,5 +39,11 @@ class Level4 extends BaseLevel{
 
         this.createLand(0.3, 0.3, 3);
         this.createLand(0.7, 0.8, 2, .6);
+    }
+    
+    createObjectives () {
+        this.createObjective(0.7, 0.3, 'bum');
+        this.createObjective(0.6, 0.4, 'bum');
+        this.createObjective(0.4, 0.6, 'bum');
     }
 }

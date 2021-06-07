@@ -59,11 +59,6 @@ class Level8 extends BaseLevel{
             'd'
         );
 
-        this.createObjective(0.1, 0.3, 'bum');
-        this.createObjective(0.25, 0.3, 'bum');
-
-        this.createObjective(0.35, 0.7, 'bum');
-        this.createObjective(0.45, 0.7, 'bum');
 
         this.createLand(0.4, 0.235, 2, .6);
         this.createLand(0.2, 0.75, 2, .6);
@@ -84,5 +79,13 @@ class Level8 extends BaseLevel{
 
         this.createLand(0.7, 0.7, 0);
         */
+    }
+    
+    createObjectives () {
+        this.createObjective(0.1, 0.3, 'bum');
+        this.createObjective(0.25, 0.3, 'bum');
+
+        this.createObjective(0.35, 0.7, 'bum');
+        this.createObjective(0.45, 0.7, 'bum');
     }
 }

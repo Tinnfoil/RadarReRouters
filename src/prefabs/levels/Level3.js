@@ -6,7 +6,6 @@ class Level3 extends BaseLevel{
 
     createLevel(){
         console.log("Level 2 Creation");
-        this.createObjective(0.5, 0.55, 'bum');
         
         this.createEnemy(
             null, 
@@ -30,5 +29,8 @@ class Level3 extends BaseLevel{
 
         this.createLand(0.1, 0.5, 5);
         this.createLand(0.9, 0.58, 5);
+    }
+    createObjectives() {
+        this.createObjective(0.5, 0.55, 'bum');
     }
 }

@@ -83,13 +83,22 @@ class Play extends Phaser.Scene{
         });
 
         this.loseParticles = this.add.particles('particle').createEmitter({
-            speed: { min: -400, max: 400 },
+            speed: { min: -500, max: 500 },
             angle: { min: 0, max: 360 },
             scale: { start: 1, end: 0 },
-            lifespan: 500,
+            lifespan: 250,
             on: false,
-            quantity: 20,
-        })
+            quantity: 8,
+        });
+
+        this.drawParticles = this.add.particles('particle').createEmitter({
+            speed: { min: -250, max: 250 },
+            angle: { min: 0, max: 360 },
+            scale: { start: 0.5, end: 0 },
+            lifespan: 100,
+            on: false,
+            quantity: 5,
+        });
     }
 
     CheckDraw(){
@@ -153,15 +162,23 @@ class Play extends Phaser.Scene{
         if(this.drawFinger != null){this.drawFinger.destroy();} 
     }
 
-    TriggerLoss() {
+    TriggerLoss(reset = true) {
         this.loseParticles.setPosition(this.playerBoat.x, this.playerBoat.y);
-        this.ResetPlayer();
         this.loseParticles.explode();
+        if(reset)
+            this.ResetPlayer();
+        this.level.resetObjectives();
+        //this.respawnTimer = this.time.delayedCall(1000, , [], this);
+        //this.playerBoat.alpha = 0;
     }
 
     update(time, delta) {  
         
         if (Phaser.Input.Keyboard.JustDown(keySPACE)) {
+            if(this.playerBoat.isFollowing()) {
+                this.TriggerLoss(false);
+                this.level.resetObjectives(true);
+            }
             this.FollowPath();
         }
  
@@ -350,7 +367,8 @@ class Play extends Phaser.Scene{
             if(this.lastLevel != null){
                 this.lastLevel.clearLevel();
                 this.lastLevel = null;
-                this.ResetAll();
+                this.level.startLevel();
+                this.ResetPlayer();
             }             
         }
     }  
