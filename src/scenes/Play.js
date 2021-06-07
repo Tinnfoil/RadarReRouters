@@ -384,12 +384,16 @@ class Play extends Phaser.Scene{
     }  
 
     debugNextLevel() {
-        this.playerBoat.setPosition(this.level.ExitPoint.x, this.level.ExitPoint.y);
-        this.level.GoToNextLevel(this.playerBoat);
+        if(!this.isCameraMove) {
+            this.playerBoat.setPosition(this.level.ExitPoint.x, this.level.ExitPoint.y);
+            this.level.GoToNextLevel(this.playerBoat);
+        }
     }
 
     debugPrevLevel() {
-        this.playerBoat.setPosition(this.playerBoat.x - gameWidth, this.playerBoat.y + gameHeight);
-        this.level.GoToNextLevel(this.playerBoat, -1);
+        if(!this.isCameraMove) {
+            this.playerBoat.setPosition(this.playerBoat.x - gameWidth, this.playerBoat.y + gameHeight);
+            this.level.GoToNextLevel(this.playerBoat, -1);
+        }
     }
 }
