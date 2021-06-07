@@ -107,7 +107,7 @@ class Play extends Phaser.Scene{
         });
 
         this.drawSound = new SpatialSound(this, this.drawParticle, 'draw', 0.25, true);
-        this.boomSFX = new SpatialSound(this, this.playerBoat, 'boom', 0.66, false);
+        this.boomSFX = new SpatialSound(this, this.playerBoat, 'boom', 0.5, false);
     }
 
     CheckDraw(){
