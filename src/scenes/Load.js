@@ -58,6 +58,8 @@ class Load extends Phaser.Scene {
         this.load.audio('blip_r', 'blip_r.mp3');
         this.load.audio('draw_l', 'draw_l.mp3');
         this.load.audio('draw_r', 'draw_r.mp3');
+        this.load.audio('boom_l', 'boom_l.mp3');
+        this.load.audio('boom_r', 'boom_r.mp3');
         this.load.audio('bum_l',  'bum_l.wav');
         this.load.audio('bum_r',  'bum_r.wav');
 

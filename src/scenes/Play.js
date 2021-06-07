@@ -107,6 +107,7 @@ class Play extends Phaser.Scene{
         });
 
         this.drawSound = new SpatialSound(this, this.drawParticle, 'draw', 0.25, true);
+        this.boomSFX = new SpatialSound(this, this.playerBoat, 'boom', 0.66, false);
     }
 
     CheckDraw(){
@@ -173,6 +174,8 @@ class Play extends Phaser.Scene{
     }
 
     TriggerLoss(reset = true) {
+        this.boomSFX.update();
+        this.boomSFX.play();
         this.loseParticles.setPosition(this.playerBoat.x, this.playerBoat.y);
         this.loseParticles.explode();
         if(reset)

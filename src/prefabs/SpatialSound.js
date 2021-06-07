@@ -12,6 +12,7 @@ class SpatialSound extends Phaser.GameObjects.GameObject{
     }
 
     update() {
+        if (!this.isPlaying) {return}
         // get coordinates of main camera, to act as our listener
         let cam_x = this.scene.cameras.main.scrollX + centerX;
         let cam_y = this.scene.cameras.main.scrollY + centerY;
