@@ -59,7 +59,7 @@ class Play extends Phaser.Scene{
 
         // Create level and initialize it
         this.levelNumber;
-        this.level = this.SetLevel(1);
+        this.level = this.SetLevel(6);
         this.level.startLevel();
 
         // For pausing updates while transitioning
@@ -151,18 +151,19 @@ class Play extends Phaser.Scene{
         this.ResetPlayer();
     }
 
-    ResetPlayer() {
+    ResetPlayer(pathreset = true) {
         console.log("resetplayer");
-        if (this.boatPath != null) {
+        if (this.boatPath != null && pathreset) {
+            console.log("Destroyed path");
             this.boatPath.destroy(); 
             this.boatPath = null;
+            this.graphics.clear();
+            this.ui.turnOffGoButton();
+            this.mouseFreeze = true;
         }
         this.playerBoat.Destroy();
         if(this.trailGhost != null){this.trailGhost.Destroy(); this.trailGhost = null;}
         this.playerBoat = new PlayerBoat(this, null, this.level.startX, this.level.startY);
-        this.graphics.clear();
-        this.mouseFreeze = true;
-        this.ui.turnOffGoButton();
         if(this.drawFinger != null){this.drawFinger.destroy();} 
     }
 
@@ -170,7 +171,7 @@ class Play extends Phaser.Scene{
         this.loseParticles.setPosition(this.playerBoat.x, this.playerBoat.y);
         this.loseParticles.explode();
         if(reset)
-            this.ResetPlayer();
+            this.ResetPlayer(false);
         this.level.resetObjectives();
         //this.respawnTimer = this.time.delayedCall(1000, , [], this);
         //this.playerBoat.alpha = 0;
