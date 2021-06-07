@@ -127,9 +127,11 @@ class BaseLevel extends Phaser.GameObjects.GameObject{
             i--;
         }
         this.objectiveHoverCount = 0;
+        this.ExitPoint.UnHover();
         this.createObjectives();
 
         if (hover) {
+            this.ExitPoint.Hover();
             for (let i = 0; i < this.ObjectiveList.length; i++) {
                 if(this.ObjectiveList.getAt(i).hovered == false){this.objectiveHoverCount -= 1;}
                 this.ObjectiveList.getAt(i).Hover();
