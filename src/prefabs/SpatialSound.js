@@ -15,7 +15,7 @@ class SpatialSound extends Phaser.GameObjects.GameObject{
         let cam_x = this.scene.cameras.main.scrollX + centerX;
         let cam_y = this.scene.cameras.main.scrollY + centerY;
 
-        let max_dist = this.scene.cameras.main.displayWidth / 2 + border;
+        let max_dist = this.scene.cameras.main.displayWidth / 1.75 + border;
         let min_dist = max_dist / 3;
 
         // get distance between source and main camera

@@ -5,8 +5,6 @@ class Play extends Phaser.Scene{
 
     create() {
         this.cameras.main.fadeIn(1500);
-        this.cameras.main.scrollX = -gameWidth/2;
-        this.cameras.main.scrollY = gameWidth/2;
 
         this.cameras.main.setBackgroundColor('#000000')
         this.grid = this.add.tileSprite(-screenWidth, -screenHeight, screenWidth * 3, screenHeight * 3, 'backgroundgrid').setOrigin(0, 0);
@@ -65,7 +63,7 @@ class Play extends Phaser.Scene{
         this.level.startLevel();
 
         // For pausing updates while transitioning
-        this.isCameraMove = true;
+        this.isCameraMove = false;
 
         // Draw indicator for drawing
         this.drawFinger = this.add.sprite(105, game.config.height - 64, 'drawfinger').setOrigin(0, 0);
@@ -323,7 +321,9 @@ class Play extends Phaser.Scene{
                 
         }
         this.ui.setLevelNumber(this.levelNumber);
-        this.levelTransition();
+        if (this.levelNumber > 1) {
+            this.levelTransition();
+        }
         return this.level;
     }
 
@@ -346,9 +346,7 @@ class Play extends Phaser.Scene{
         if(this.lastLevel != null){
             this.lastLevel.stopLevel();
         }
-        if(this.levelNumber != 1) {
-            this.music.addLayer();
-        }
+        this.music.addLayer();
         this.cameras.main.pan(this.level.centerX, this.level.centerY, transitionTime, 'Sine.easeInOut', false, this.transistionCallback);
         this.cameras.main.zoomTo(this.level.zoomLevel, transitionTime, 'Sine.easeInOut');
     }

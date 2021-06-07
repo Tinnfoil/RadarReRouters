@@ -207,6 +207,7 @@ class BaseLevel extends Phaser.GameObjects.GameObject{
         this.ExitPoint.DestroySelf();
         this.ExitPoint = null;
         playerBoat.stopFollow();
+        playerBoat.sfx.stop();
         this.scene.SetLevel(this.scene.levelNumber + num);
     }
 
