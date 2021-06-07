@@ -82,6 +82,14 @@ class Play extends Phaser.Scene{
             add: true
         });
 
+        this.loseParticles = this.add.particles('particle').createEmitter({
+            speed: { min: -400, max: 400 },
+            angle: { min: 0, max: 360 },
+            scale: { start: 1, end: 0 },
+            lifespan: 500,
+            on: false,
+            quantity: 20,
+        })
     }
 
     CheckDraw(){
@@ -131,7 +139,11 @@ class Play extends Phaser.Scene{
     }
 
     ResetPlayer() {
-        this.boatPath.destroy(); this.boatPath = null;
+        console.log("resetplayer");
+        if (this.boatPath != null) {
+            this.boatPath.destroy(); 
+            this.boatPath = null;
+        }
         this.playerBoat.Destroy();
         if(this.trailGhost != null){this.trailGhost.Destroy(); this.trailGhost = null;}
         this.playerBoat = new PlayerBoat(this, null, this.level.startX, this.level.startY);
@@ -139,6 +151,12 @@ class Play extends Phaser.Scene{
         this.mouseFreeze = true;
         this.ui.turnOffGoButton();
         if(this.drawFinger != null){this.drawFinger.destroy();} 
+    }
+
+    TriggerLoss() {
+        this.loseParticles.setPosition(this.playerBoat.x, this.playerBoat.y);
+        this.ResetPlayer();
+        this.loseParticles.explode();
     }
 
     update(time, delta) {  

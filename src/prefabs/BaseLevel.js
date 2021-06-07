@@ -158,7 +158,8 @@ class BaseLevel extends Phaser.GameObjects.GameObject{
             if(Phaser.Math.Distance.BetweenPoints( playerBoat, this.EnemyList.getAt(i)) < playerBoat.colRad + this.EnemyList.getAt(i).colRad)
             {
                 console.log("collided with enemy boat");
-                this.scene.ResetAll();
+                //this.scene.ResetAll();
+                this.scene.TriggerLoss();
             }
         }
 

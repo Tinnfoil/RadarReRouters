@@ -36,6 +36,7 @@ class Load extends Phaser.Scene {
         this.load.image("exitpoint",        "Exit_Flag.png");
         this.load.image('winscreen',        "Win_Screen.png");
         this.load.image('returnbutton',     "Return_Button.png");
+        this.load.image('particle',         "particle.png");
 
         // Load audio:
         this.load.path = './assets/audio/';
