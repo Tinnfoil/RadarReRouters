@@ -40,8 +40,8 @@ class Enemy extends Phaser.GameObjects.PathFollower {
         this.circlegraphics = scene.add.graphics({ lineStyle: { width: 2, color: 0xff0000, alpha: .3 }, fillStyle: { color: 0xff0000 }});
         this.circle = new Phaser.Geom.Circle(this.x, this.y, this.colRad );
 
-        this.sfx = new SpatialSound(scene, this, sfx_key, 0.1, true);
-        this.sfx.play();
+        this.sfx = new SpatialSound(scene, this, sfx_key, 1.5, true);
+        this.sfx.play(this.scene.music.getSeek());
 
         this.anims.play('ship');
     }

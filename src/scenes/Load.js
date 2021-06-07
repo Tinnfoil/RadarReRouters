@@ -43,19 +43,27 @@ class Load extends Phaser.Scene {
 
         this.load.audio('ambience', 'ambience.mp3');
         
-        this.load.audio('a_l', 'drone_a_l.wav');
-        this.load.audio('a_r', 'drone_a_r.wav');
-        this.load.audio('d_l', 'drone_d_l.wav');
-        this.load.audio('d_r', 'drone_d_r.wav');
-        this.load.audio('blip_l', 'blips_l.mp3');
-        this.load.audio('blip_r', 'blips_r.mp3');
+        this.load.audio('a_l', 'a_l.mp3');
+        this.load.audio('a_r', 'a_r.mp3');
+        this.load.audio('c_l', 'c_l.mp3');
+        this.load.audio('c_r', 'c_r.mp3');
+        this.load.audio('e_l', 'e_l.mp3');
+        this.load.audio('e_r', 'e_r.mp3');
+        this.load.audio('f_l', 'f_l.mp3');
+        this.load.audio('f_r', 'f_r.mp3');
+        this.load.audio('g_l', 'g_l.mp3');
+        this.load.audio('g_r', 'g_r.mp3');
+        this.load.audio('blip_l', 'blip_l.mp3');
+        this.load.audio('blip_r', 'blip_r.mp3');
         this.load.audio('bum_l',  'bum_l.wav');
         this.load.audio('bum_r',  'bum_r.wav');
 
-        this.load.audio('hat', 'hi-hat.mp3');
-        this.load.audio('kick', 'kick.mp3');
+        this.load.audio('bass', 'bass.mp3');
         this.load.audio('snare', 'snare.mp3');
-        this.load.audio('cym', 'cym.mp3');
+        this.load.audio('lead', 'lead.mp3');
+        this.load.audio('hats', 'hats.mp3');
+        this.load.audio('drums', 'drums.mp3');
+        this.load.audio('synth', 'synth.mp3');
     }
 
     create() {

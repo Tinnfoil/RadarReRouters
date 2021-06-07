@@ -57,7 +57,7 @@ class Play extends Phaser.Scene{
         }
 
         this.music = new Music (this, 
-            ['hat', 'kick', 'snare', 'cym'], 0.2);
+            ['bass', 'snare', 'lead', 'hats', 'drums', 'synth'], 1);
 
         // Create level and initialize it
         this.levelNumber;
@@ -65,7 +65,7 @@ class Play extends Phaser.Scene{
         this.level.startLevel();
 
         // For pausing updates while transitioning
-        this.isCameraMove = false;
+        this.isCameraMove = true;
 
         // Draw indicator for drawing
         this.drawFinger = this.add.sprite(105, game.config.height - 64, 'drawfinger').setOrigin(0, 0);
@@ -358,7 +358,7 @@ class Play extends Phaser.Scene{
             this.lastLevel.updateSFX();
             this.lastLevel.setAlphas(1 - progress);
         }
-        if(this.levelNumber != 1) {
+        if(this.levelNumber > 2) {
             this.music.fadeInLayer(progress);
         }
         this.level.setAlphas(progress);

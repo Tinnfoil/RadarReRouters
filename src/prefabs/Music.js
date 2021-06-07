@@ -23,10 +23,11 @@ class Music extends Phaser.GameObjects.GameObject{
     }
 
     addLayer() {
-        if (this.layerNum == -1) {
-            this.startPlayback();
-        }
         this.layerNum += 1;
+        if (this.layerNum == 0) {
+            this.startPlayback();
+            this.musicLayers[0].volume = this.baseVolume;
+        }
         console.log(this.layerNum);
     }
 

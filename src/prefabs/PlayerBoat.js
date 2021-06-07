@@ -23,7 +23,7 @@ class PlayerBoat extends Phaser.GameObjects.PathFollower {
         this.circlegraphics = scene.add.graphics({ lineStyle: { width: 2, color: 0x00ff00, alpha: .2 }, fillStyle: { color: 0xff0000 }});
         this.circle = new Phaser.Geom.Circle(this.x, this.y, this.colRad );
 
-        this.sfx = new SpatialSound(scene, this, 'blip', 0.5, true);
+        this.sfx = new SpatialSound(scene, this, 'blip', 1, true);
 
         this.anims.play('sub');
     }

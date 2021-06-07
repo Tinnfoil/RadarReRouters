@@ -13,7 +13,7 @@ class Level4 extends BaseLevel{
             .5,
             0, 
             'enemyboat',
-            'd'
+            'g'
         );
         this.createEnemy(
             null, 
@@ -23,7 +23,7 @@ class Level4 extends BaseLevel{
             .5,
             .5, 
             'enemyboat',
-            'd'
+            'f'
         );
         this.createEnemy(
             null, 

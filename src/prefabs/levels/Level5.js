@@ -17,7 +17,7 @@ class Level5 extends BaseLevel{
             .4,
             0.5, 
             'enemyboat',
-            'a'
+            'e'
         );
         /*   
         this.createEnemy(

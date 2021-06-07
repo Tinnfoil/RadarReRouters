@@ -11,7 +11,7 @@ class Level8 extends BaseLevel{
             .5,
             0, 
             'enemyboat',
-            'd'
+            'a'
         );
         this.createEnemy(
             null, 
@@ -20,7 +20,7 @@ class Level8 extends BaseLevel{
             .5,
             .1, 
             'enemyboat',
-            'd'
+            'f'
         );
         this.createEnemy(
             null, 
@@ -29,7 +29,7 @@ class Level8 extends BaseLevel{
             .5,
             .2, 
             'enemyboat',
-            'd'
+            'g'
         );
         this.createEnemy(
             null, 
@@ -38,7 +38,7 @@ class Level8 extends BaseLevel{
             .5,
             .3, 
             'enemyboat',
-            'd'
+            'c'
         );
         this.createEnemy(
             null, 
@@ -47,7 +47,7 @@ class Level8 extends BaseLevel{
             .5,
             .4, 
             'enemyboat',
-            'd'
+            'e'
         );
         this.createEnemy(
             null, 
@@ -56,7 +56,7 @@ class Level8 extends BaseLevel{
             .5,
             .5, 
             'enemyboat',
-            'd'
+            'g'
         );
 
 

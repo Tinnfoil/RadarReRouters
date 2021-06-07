@@ -18,7 +18,7 @@ class Level2 extends BaseLevel{
             1,
             0.5, 
             'enemyboat',
-            'a'
+            'c'
         );
 
         //this.createLand(0.2, 0.2, 0);
